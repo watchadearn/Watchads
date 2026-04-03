@@ -5,12 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#FF6B00">
 <meta name="google-adsense-account" content="ca-pub-4936119745673006">
+  <meta name="description" content="CoinWatch — Watch short ads and earn real rewards. Redeem coins for Google Play gift cards, Amazon Pay, UPI payments and cryptocurrency. Free to join!">
+  <meta name="keywords" content="earn money online, watch ads earn rewards, free gift cards India, earn coins, Google Play gift card, Amazon Pay, UPI payment, cryptocurrency rewards">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://watchadearn.gamer.gd/">
 <meta name="mobile-web-app-capable" content="yes">
 <title>CoinWatch</title>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4936119745673006~9177715778" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+/* Hide app until boot() decides what to show */
+.topbar,.sidebar,.sb-ov,.page{visibility:hidden}
+
 :root{
   --bg:#F5F4F0;--bg2:#EDECE8;--card:#FFF;--border:#E8E7E3;--border2:#DDDCD8;
   --text:#181818;--sub:#8A8A8A;
@@ -41,6 +48,8 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
 #splash.hide{opacity:0;pointer-events:none}
 .sp-icon{width:86px;height:86px;background:rgba(255,255,255,.2);border-radius:26px;display:flex;align-items:center;justify-content:center;font-size:44px;border:3px solid rgba(255,255,255,.35);animation:spPop .6s cubic-bezier(.34,1.56,.64,1)}
 @keyframes spPop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.otp-box.err{animation:shake .4s ease;border-color:var(--rd)!important;box-shadow:0 0 0 3px rgba(255,59,92,.15)!important}
 .sp-name{font-size:30px;font-weight:900;color:#fff;letter-spacing:-1px;animation:fadeUp .4s .2s both}
 .sp-tag{font-size:13px;color:rgba(255,255,255,.85);font-weight:600;animation:fadeUp .4s .3s both}
 .sp-bar-w{width:220px;height:6px;background:rgba(255,255,255,.2);border-radius:50px;overflow:hidden;animation:fadeUp .4s .4s both}
@@ -426,10 +435,281 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
 .burst{position:fixed;pointer-events:none;z-index:998;font-size:15px;font-weight:800;color:var(--or);animation:burstUp .8s ease forwards;top:48px;right:55px}
 @keyframes burstUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-55px) scale(1.4)}}
 .empty{text-align:center;padding:32px 18px;color:var(--sub);font-size:12px;font-weight:600}
+
+/* ═══════════════════════════════════════
+   AUTH SCREEN
+═══════════════════════════════════════ */
+#auth-screen{
+  position:fixed;inset:0;z-index:10000;
+  background:var(--bg);
+  display:none; /* hidden by default — shown only when not signed in */
+  flex-direction:column;align-items:center;justify-content:center;
+  padding:28px 20px;overflow-y:auto;
+}
+/* When auth screen is open, hide app elements */
+#auth-screen.visible{display:flex}
+.auth-logo{
+  width:72px;height:72px;
+  background:linear-gradient(135deg,var(--or),var(--or2));
+  border-radius:22px;display:flex;align-items:center;justify-content:center;
+  font-size:36px;margin-bottom:12px;
+  box-shadow:0 10px 30px rgba(255,107,0,.3);
+  animation:spPop .5s cubic-bezier(.34,1.56,.64,1);
+}
+.auth-title{font-size:24px;font-weight:900;color:var(--text);margin-bottom:4px;text-align:center}
+.auth-sub{font-size:12px;color:var(--sub);margin-bottom:20px;text-align:center;font-weight:600}
+.auth-tabs{
+  display:flex;gap:0;
+  background:var(--bg2);border-radius:50px;padding:4px;
+  width:100%;max-width:320px;margin-bottom:20px;
+}
+.auth-tab{
+  flex:1;padding:10px;
+  font-family:'Outfit',Arial,sans-serif;font-size:13px;font-weight:700;
+  color:var(--sub);background:none;border:none;border-radius:50px;
+  cursor:pointer;transition:.2s;text-align:center;
+}
+.auth-tab.active{background:var(--or);color:#fff;box-shadow:0 4px 14px rgba(255,107,0,.28)}
+.auth-form{width:100%;max-width:320px;display:flex;flex-direction:column}
+.auth-field{margin-bottom:14px}
+.auth-inp-wrap{position:relative}
+.auth-inp-lbl{
+  font-size:11px;font-weight:700;color:var(--sub);
+  margin-bottom:6px;display:block;letter-spacing:.3px;text-transform:uppercase;
+}
+.auth-inp{
+  width:100%;background:var(--card);
+  border:2px solid var(--border2);border-radius:var(--r-sm);
+  padding:14px 16px;
+  font-family:'Outfit',Arial,sans-serif;font-size:15px;font-weight:600;
+  color:var(--text);outline:none;
+  transition:border-color .2s,box-shadow .2s;display:block;
+}
+.auth-inp:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(255,107,0,.12)}
+.auth-inp.err{border-color:var(--rd)}
+.auth-inp.ok{border-color:var(--gr)}
+.auth-inp-with-eye{padding-right:48px}
+.auth-inp-eye{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:none;border:none;font-size:18px;cursor:pointer;
+  color:var(--sub);padding:4px;line-height:1;opacity:.5;
+}
+.auth-err{
+  font-size:12px;font-weight:700;color:var(--rd);
+  min-height:18px;margin-bottom:8px;text-align:center;
+}
+.auth-err.ok-msg{color:var(--gr)}
+.auth-btn{
+  background:linear-gradient(135deg,var(--or),var(--or2));
+  color:#fff;border:none;border-radius:50px;padding:15px;
+  font-family:'Outfit',Arial,sans-serif;font-size:15px;font-weight:800;
+  cursor:pointer;box-shadow:0 8px 24px rgba(255,107,0,.28);
+  transition:transform .12s,opacity .12s;
+  width:100%;margin-bottom:10px;margin-top:4px;
+}
+.auth-btn:active{transform:scale(.97)}
+.auth-btn:disabled{opacity:.5;pointer-events:none}
+.auth-forgot{
+  font-size:12px;color:var(--or);font-weight:700;
+  text-align:center;cursor:pointer;background:none;border:none;
+  font-family:'Outfit',Arial,sans-serif;padding:6px;width:100%;
+}
+.pw-strength-wrap{height:4px;background:var(--border2);border-radius:50px;margin-top:7px;overflow:hidden}
+.pw-strength{height:100%;border-radius:50px;width:0%;transition:all .35s}
+.pw-strength.weak{background:var(--rd);width:33%}
+.pw-strength.medium{background:var(--gd);width:66%}
+.pw-strength.strong{background:var(--gr);width:100%}
+.pw-strength-lbl{font-size:10px;font-weight:700;margin-top:4px}
+.pw-strength-lbl.weak{color:var(--rd)}
+.pw-strength-lbl.medium{color:var(--gd)}
+.pw-strength-lbl.strong{color:var(--gr)}
+
+/* ═══ OTP SCREEN ═══ */
+#otp-screen{position:fixed;inset:0;z-index:10002;background:var(--bg);display:none;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;overflow-y:auto}
+#otp-screen.visible{display:flex!important}
+.otp-icon{font-size:50px;margin-bottom:12px}
+.otp-title{font-size:20px;font-weight:900;color:var(--text);margin-bottom:6px;text-align:center}
+.otp-sub{font-size:12px;color:var(--sub);font-weight:600;margin-bottom:20px;text-align:center;max-width:300px;line-height:1.6}
+.otp-boxes{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;gap:8px;margin-bottom:18px;width:100%}
+.otp-box{flex:0 0 46px;width:46px;height:56px;background:var(--card);border:2px solid var(--border2);border-radius:12px;font-size:26px;font-weight:900;color:var(--text);text-align:center;outline:none;transition:border-color .2s,box-shadow .2s;font-family:'Outfit',sans-serif;padding:0;-webkit-appearance:none;appearance:none}
+.otp-box:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(255,107,0,.15)}
+.otp-box.filled{border-color:var(--or);background:rgba(255,107,0,.07)}
+.otp-box.err{animation:shake .4s ease;border-color:var(--rd)!important;box-shadow:0 0 0 3px rgba(255,59,92,.15)!important}
+.otp-err-box{font-size:12px;font-weight:700;color:var(--rd);min-height:18px;margin-bottom:10px;text-align:center}
+.otp-err-box.ok-msg{color:var(--gr)}
+.otp-timer{font-size:12px;color:var(--sub);font-weight:600;margin-bottom:12px}
+.otp-resend{font-size:12px;color:var(--or);font-weight:700;cursor:pointer;background:none;border:none;font-family:'Outfit',sans-serif;padding:6px;margin-bottom:6px;display:block;width:100%;text-align:center}
+.otp-resend:disabled{color:var(--sub);pointer-events:none}
+.otp-back{font-size:12px;color:var(--sub);font-weight:600;cursor:pointer;background:none;border:none;font-family:'Outfit',sans-serif;padding:6px;text-decoration:underline;display:block;text-align:center}
+
+/* NOTIFICATION BELL */
+.notif-btn{width:36px;height:36px;border-radius:10px;background:var(--bg2);border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.notif-dot{position:absolute;top:5px;right:5px;width:8px;height:8px;background:var(--rd);border-radius:50%;border:2px solid var(--bg);display:none}
+.notif-dot.show{display:block}
+/* Dropdown */
+.notif-drop{position:fixed;top:60px;right:12px;width:300px;max-width:calc(100vw - 24px);background:var(--card);border-radius:var(--r);box-shadow:0 8px 32px rgba(0,0,0,.22);z-index:500;border:1px solid var(--border);overflow:hidden;display:none;animation:fadeDown .15s ease}
+.notif-drop.open{display:block}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.notif-header{padding:13px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.notif-title{font-size:13px;font-weight:800;color:var(--text)}
+.notif-clear{font-size:11px;color:var(--or);font-weight:700;cursor:pointer;background:none;border:none;font-family:'Outfit',sans-serif}
+.notif-list{max-height:320px;overflow-y:auto}
+.notif-item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.notif-item:hover{background:var(--bg2)}
+.notif-item:last-child{border-bottom:none}
+.notif-item.unread{background:rgba(255,107,0,.05)}
+.ni-row{display:flex;gap:10px;align-items:flex-start}
+.ni-ico{font-size:20px;flex-shrink:0;margin-top:1px}
+.ni-body{flex:1;min-width:0}
+.ni-title{font-size:12px;font-weight:700;color:var(--text)}
+.ni-msg{font-size:11px;color:var(--sub);margin-top:2px;line-height:1.4}
+.ni-time{font-size:10px;color:var(--sub);margin-top:3px}
+.notif-empty{padding:24px;text-align:center;font-size:12px;color:var(--sub);font-weight:600}
+
+/* SURVEY & PTC */
+.sv-card{background:var(--card);border-radius:var(--r);padding:15px;margin-bottom:10px;box-shadow:var(--sh);display:flex;align-items:center;gap:13px}
+.sv-ico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.sv-body{flex:1;min-width:0}
+.sv-name{font-size:14px;font-weight:800;color:var(--text)}
+.sv-desc{font-size:11px;color:var(--sub);margin-top:2px}
+.sv-reward{font-size:13px;font-weight:900;color:var(--or);margin-top:4px}
+.sv-time{font-size:10px;color:var(--sub);margin-top:2px}
+.sv-btn{flex-shrink:0}
+.ptc-card{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:9px;box-shadow:var(--sh)}
+.ptc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.ptc-ico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;background:var(--bl-s)}
+.ptc-info{flex:1}
+.ptc-name{font-size:13px;font-weight:800;color:var(--text)}
+.ptc-url{font-size:10px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ptc-reward{font-size:12px;font-weight:900;color:var(--or)}
+.ptc-timer{font-size:11px;font-weight:700;color:var(--sub);margin-top:2px}
+.ptc-progress{height:5px;background:var(--bg2);border-radius:50px;overflow:hidden;margin-top:8px}
+.ptc-bar{height:100%;background:linear-gradient(90deg,var(--bl),#56A0FF);border-radius:50px;width:0%;transition:width 1s linear}
 </style>
+  <!-- EmailJS for OTP sending -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    // ⚠️ REPLACE THESE WITH YOUR EMAILJS CREDENTIALS
+    // Sign up free at emailjs.com → get Public Key, Service ID, Template ID
+    window.EMAILJS_PUBLIC_KEY  = 'IJz_0GrgOXzAOu8FO';   // e.g. 'abc123xyz'
+    window.EMAILJS_SERVICE_ID  = 'service_3va2na9';   // e.g. 'service_xxxx'
+    window.EMAILJS_TEMPLATE_ID = 'template_57026re';  // e.g. 'template_xxxx'
+  </script>
 </head>
-  <script>(function(s){s.dataset.zone='10794394',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <body>
+<!-- App hidden by main stylesheet until boot() completes -->
+
+<!-- SEO LANDING — visible to AdSense crawlers & non-logged users -->
+<div id="seo-landing" style="display:none;padding:20px 16px 0;max-width:480px;margin:0 auto">
+  <h1 style="font-size:22px;font-weight:900;color:#FF6B00;margin-bottom:6px">CoinWatch — Earn Real Rewards</h1>
+  <p style="font-size:13px;color:#555;line-height:1.6;margin-bottom:14px">
+    Watch short video ads and earn coins you can redeem for real rewards including Google Play gift cards, Amazon Pay balance, UPI bank transfers and cryptocurrency.
+  </p>
+  <h2 style="font-size:15px;font-weight:800;color:#181818;margin-bottom:6px">How It Works</h2>
+  <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:10px">
+    1. Create a free account with your email address.<br>
+    2. Watch 15–30 second video ads each day.<br>
+    3. Earn coins for every ad you complete.<br>
+    4. Redeem your coins for real money rewards.
+  </p>
+  <h2 style="font-size:15px;font-weight:800;color:#181818;margin-bottom:6px">Available Rewards</h2>
+  <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:10px">
+    Google Play Gift Cards (₹20, ₹50) · Amazon Pay (₹20, ₹50) · UPI Direct Transfer (₹30, ₹100) · Litecoin (LTC) · Solana (SOL)
+  </p>
+  <h2 style="font-size:15px;font-weight:800;color:#181818;margin-bottom:6px">Daily Earning Opportunities</h2>
+  <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:10px">
+    Daily login streak bonus · 7-ad completion bonus · Spin wheel · Scratch cards · Referral rewards · Survey completion · Paid-to-click ads
+  </p>
+  <p style="font-size:11px;color:#aaa;margin-bottom:16px">
+    <a href="/privacy.html" style="color:#FF6B00">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="/terms.html" style="color:#FF6B00">Terms of Service</a> &nbsp;·&nbsp;
+    CoinWatch © 2025
+  </p>
+</div>
+
+<!-- AUTH SCREEN — shown for new users & sign in -->
+<div id="auth-screen">
+  <div class="auth-logo">💰</div>
+  <div class="auth-title">CoinWatch</div>
+  <div class="auth-sub">Watch Ads · Earn Real Rewards</div>
+
+  <!-- Sign In / Create Account tabs -->
+  <div class="auth-tabs">
+    <button class="auth-tab active" id="tab-signin" onclick="switchAuthTab('signin')">Sign In</button>
+    <button class="auth-tab" id="tab-signup" onclick="switchAuthTab('signup')">Create Account</button>
+  </div>
+
+  <!-- SIGN IN FORM -->
+  <div class="auth-form" id="form-signin">
+    <div class="auth-field">
+      <label class="auth-inp-lbl">Email</label>
+      <input class="auth-inp" id="si-email" type="email" placeholder="your@email.com"
+        oninput="clearAuthErr()" autocomplete="email">
+    </div>
+    <div class="auth-field">
+      <label class="auth-inp-lbl">Password</label>
+      <div class="auth-inp-wrap">
+        <input class="auth-inp auth-inp-with-eye" id="si-pass" type="password" placeholder="Enter password"
+          oninput="clearAuthErr()" autocomplete="current-password"
+          onkeydown="if(event.key==='Enter')doSignIn()">
+        <button class="auth-inp-eye" onclick="toggleEye('si-pass',this)">👁</button>
+      </div>
+    </div>
+    <div class="auth-err" id="si-err"></div>
+    <button class="auth-btn" id="si-btn" onclick="doSignIn()">🔑 Sign In</button>
+    <button class="auth-forgot" onclick="doForgotPassword()">Forgot password?</button>
+  </div>
+
+  <!-- CREATE ACCOUNT FORM -->
+  <div class="auth-form" id="form-signup" style="display:none">
+    <div class="auth-field">
+      <label class="auth-inp-lbl">Email</label>
+      <input class="auth-inp" id="su-email" type="email" placeholder="your@email.com"
+        oninput="clearAuthErr()" autocomplete="email">
+    </div>
+    <div class="auth-field">
+      <label class="auth-inp-lbl">Password</label>
+      <div class="auth-inp-wrap">
+        <input class="auth-inp auth-inp-with-eye" id="su-pass" type="password" placeholder="Min 6 characters"
+          oninput="checkPwStrength(this)" autocomplete="new-password">
+        <button class="auth-inp-eye" onclick="toggleEye('su-pass',this)">👁</button>
+      </div>
+      <div class="pw-strength-wrap"><div class="pw-strength" id="pw-strength"></div></div>
+      <div class="pw-strength-lbl" id="pw-strength-lbl"></div>
+    </div>
+    <div class="auth-field">
+      <label class="auth-inp-lbl">Confirm Password</label>
+      <div class="auth-inp-wrap">
+        <input class="auth-inp auth-inp-with-eye" id="su-pass2" type="password" placeholder="Re-enter password"
+          oninput="clearAuthErr()" autocomplete="new-password"
+          onkeydown="if(event.key==='Enter')doSignUp()">
+        <button class="auth-inp-eye" onclick="toggleEye('su-pass2',this)">👁</button>
+      </div>
+    </div>
+    <div class="auth-err" id="su-err"></div>
+    <button class="auth-btn" id="su-btn" onclick="doSignUp()">🚀 Create Account</button>
+  </div>
+</div>
+
+<!-- OTP VERIFICATION SCREEN -->
+<div id="otp-screen">
+  <div class="otp-icon">📧</div>
+  <div class="otp-title">Verify your Email</div>
+  <div class="otp-sub">We sent a 6-digit code to<br><strong id="otp-email-display" style="color:var(--or);word-break:break-all">your email</strong></div>
+  <div class="otp-boxes">
+    <input class="otp-box" id="otp0" maxlength="1" inputmode="numeric" pattern="[0-9]" oninput="otpInput(this,0)" onkeydown="otpKey(event,0)">
+    <input class="otp-box" id="otp1" maxlength="1" inputmode="numeric" pattern="[0-9]" oninput="otpInput(this,1)" onkeydown="otpKey(event,1)">
+    <input class="otp-box" id="otp2" maxlength="1" inputmode="numeric" pattern="[0-9]" oninput="otpInput(this,2)" onkeydown="otpKey(event,2)">
+    <input class="otp-box" id="otp3" maxlength="1" inputmode="numeric" pattern="[0-9]" oninput="otpInput(this,3)" onkeydown="otpKey(event,3)">
+    <input class="otp-box" id="otp4" maxlength="1" inputmode="numeric" pattern="[0-9]" oninput="otpInput(this,4)" onkeydown="otpKey(event,4)">
+    <input class="otp-box" id="otp5" maxlength="1" inputmode="numeric" pattern="[0-9]" oninput="otpInput(this,5)" onkeydown="otpKey(event,5)">
+  </div>
+  <div class="otp-err-box" id="otp-err"></div>
+  <div class="otp-timer" id="otp-timer">Code expires in 10:00</div>
+  <button class="otp-resend" id="otp-resend" onclick="resendOTP()" disabled>Resend Code</button>
+  <button class="auth-btn" id="otp-verify-btn" onclick="verifyOTP()" style="max-width:300px;margin-bottom:10px">✅ Verify &amp; Create Account</button>
+  <button class="otp-back" onclick="cancelOTP()">← Back to Sign Up</button>
+</div>
 
 <!-- SPLASH -->
 <div id="splash">
@@ -443,17 +723,31 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
 </div>
 
 <!-- TOPBAR -->
-<div class="topbar">
+<div class="topbar" id="main-topbar" style="display:none">
   <div class="tl">
     <button class="hbg" id="hbg" onclick="toggleSB()"><span></span><span></span><span></span></button>
     <div class="logo">Coin<b>Watch</b></div>
   </div>
   <div class="tr">
     <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙</button>
+    <button class="notif-btn" id="notifBtn" onclick="toggleNotifDrop(event)">
+      🔔<span class="notif-dot" id="notif-dot"></span>
+    </button>
     <div class="wallet-pill" id="wp" onclick="go('wallet')">
       <div class="wpc">🪙 <span id="topC">0</span></div>
       <div class="wpi">₹<span id="topI">0.00</span></div>
     </div>
+  </div>
+</div>
+
+<!-- NOTIFICATION DROPDOWN -->
+<div class="notif-drop" id="notif-drop">
+  <div class="notif-header">
+    <span class="notif-title">🔔 Notifications</span>
+    <button class="notif-clear" onclick="clearNotifications()">Clear all</button>
+  </div>
+  <div class="notif-list" id="notif-list">
+    <div class="notif-empty">No notifications yet</div>
   </div>
 </div>
 
@@ -486,6 +780,8 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   <div class="sb-item" onclick="goSB('wallet')"><span class="sb-ico">💰</span>Wallet</div>
   <div class="sb-item" onclick="goSB('redeem')"><span class="sb-ico">🎁</span>Redeem<span class="sb-bdg" id="sb-redeem-dot" style="display:none">!</span></div>
   <div class="sb-item" onclick="goSB('redeem');setTimeout(()=>document.getElementById('codeInput').focus(),300)"><span class="sb-ico">🎫</span>Gift Code</div>
+  <div class="sb-item" onclick="goSB('survey')"><span class="sb-ico">📋</span>Surveys</div>
+  <div class="sb-item" onclick="goSB('ptc')"><span class="sb-ico">🖱️</span>PTC Ads</div>
   <div class="sb-item" onclick="goSB('withdraw-history')"><span class="sb-ico">📋</span>Withdraw History</div>
   <div class="sb-item" onclick="goSB('achievements')"><span class="sb-ico">🏅</span>Achievements</div>
   <div class="sb-item" onclick="goSB('referral')"><span class="sb-ico">👥</span>Refer &amp; Earn</div>
@@ -754,6 +1050,81 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
 </div>
 
+<!-- SURVEY PAGE -->
+<div class="page" id="page-survey">
+  <div class="sec"><div class="sec-lbl">📋 Earn from Surveys</div></div>
+  <div class="info-bar">✅ Complete surveys to earn extra coins instantly!</div>
+
+  <!-- CPX Research (best survey network for India) -->
+  <div class="col" style="margin-top:9px">
+    <div class="card" style="text-align:center;padding:20px">
+      <div style="font-size:36px;margin-bottom:8px">📋</div>
+      <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:6px">CPX Research Surveys</div>
+      <div style="font-size:12px;color:var(--sub);margin-bottom:14px">Answer surveys from top brands. Each survey earns you extra coins!</div>
+      <button class="btn btn-or btn-full btn-md" onclick="openSurveyWall()">🚀 Start Surveys</button>
+    </div>
+  </div>
+
+  <div class="sec-lbl" style="margin-top:4px">Featured Surveys</div>
+  <div id="survey-list" style="padding:0 14px">
+    <div class="sv-card">
+      <div class="sv-ico" style="background:var(--or-s)">📊</div>
+      <div class="sv-body">
+        <div class="sv-name">Market Research Survey</div>
+        <div class="sv-desc">Share your shopping habits</div>
+        <div class="sv-reward">🪙 +50 coins</div>
+        <div class="sv-time">⏱ ~5 minutes</div>
+      </div>
+      <button class="btn btn-or btn-sm sv-btn" onclick="startSurvey('market',50)">Start</button>
+    </div>
+    <div class="sv-card">
+      <div class="sv-ico" style="background:var(--bl-s)">🎮</div>
+      <div class="sv-body">
+        <div class="sv-name">Gaming Preferences</div>
+        <div class="sv-desc">Tell us about your gaming habits</div>
+        <div class="sv-reward">🪙 +80 coins</div>
+        <div class="sv-time">⏱ ~8 minutes</div>
+      </div>
+      <button class="btn btn-or btn-sm sv-btn" onclick="startSurvey('gaming',80)">Start</button>
+    </div>
+    <div class="sv-card">
+      <div class="sv-ico" style="background:var(--pu-s)">🛒</div>
+      <div class="sv-body">
+        <div class="sv-name">Online Shopping Survey</div>
+        <div class="sv-desc">Rate your e-commerce experience</div>
+        <div class="sv-reward">🪙 +120 coins</div>
+        <div class="sv-time">⏱ ~12 minutes</div>
+      </div>
+      <button class="btn btn-or btn-sm sv-btn" onclick="startSurvey('shopping',120)">Start</button>
+    </div>
+  </div>
+</div>
+
+<!-- PTC PAGE -->
+<div class="page" id="page-ptc">
+  <div class="sec"><div class="sec-lbl">🖱️ Paid to Click</div></div>
+  <div class="info-bar">👆 Click ads and watch for 30 seconds to earn coins!</div>
+
+  <!-- Daily PTC counter -->
+  <div class="col" style="margin-top:9px">
+    <div class="card" style="background:linear-gradient(135deg,var(--bl),#56A0FF);border:none">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:12px;color:rgba(255,255,255,.8);font-weight:600">Today's PTC Earnings</div>
+          <div style="font-size:28px;font-weight:900;color:#fff" id="ptc-today-coins">0 🪙</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:12px;color:rgba(255,255,255,.8);font-weight:600">Clicked Today</div>
+          <div style="font-size:28px;font-weight:900;color:#fff"><span id="ptc-today-count">0</span>/10</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Available Ads</div>
+  <div id="ptc-list" style="padding:0 14px"></div>
+</div>
+
 <!-- WITHDRAWAL HISTORY -->
 <div class="page" id="page-withdraw-history">
   <div class="sec"><div class="sec-lbl">Withdrawal History</div></div>
@@ -772,15 +1143,16 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
 <div class="page" id="page-referral">
   <div class="ref-h">
     <div class="ref-title">👥 Refer &amp; Earn</div>
-    <div class="ref-sub">Share your code — earn 50 🪙 per friend!</div>
+    <div class="ref-sub">Share your code with friends — you earn 50 🪙 when they watch 50 ads!</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.7);font-weight:600;margin-bottom:8px">Your referral code:</div>
     <div class="ref-code-box">
       <div class="ref-code-txt" id="ref-code-display">COIN-XXXX</div>
       <button class="ref-copy-btn" onclick="copyRef()">📋 Copy</button>
     </div>
     <div class="ref-row">
-      <div class="ref-item"><div class="ref-val">50🪙</div><div class="ref-lbl">You earn</div></div>
+      <div class="ref-item"><div class="ref-val">50🪙</div><div class="ref-lbl">You earn per referral</div></div>
       <div class="ref-item"><div class="ref-val">10–100🪙</div><div class="ref-lbl">Friend wins</div></div>
-      <div class="ref-item"><div class="ref-val" id="ref-cnt">0</div><div class="ref-lbl">Referrals</div></div>
+      <div class="ref-item"><div class="ref-val" id="ref-cnt">0</div><div class="ref-lbl">Total referrals</div></div>
     </div>
   </div>
   <div class="sec" style="margin-top:14px"><div class="sec-lbl">Share Via</div></div>
@@ -811,6 +1183,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
     <div class="ph-uid-chip" onclick="copyUID()">
       🔑 <span id="ph-uid-txt">Loading...</span> <span style="font-size:9px;opacity:.6">tap to copy</span>
     </div>
+    <div style="font-size:11px;color:var(--sub);margin-bottom:8px" id="ph-email-txt"></div>
     <div class="ph-lv" id="ph-lv">Level 1 · Beginner</div>
     <div class="lv-lbs"><span>XP Progress</span><span id="xp-lbl">0/100</span></div>
     <div class="prog" style="height:9px"><div class="pf pf-or" id="xp-fill" style="width:0%"></div></div>
@@ -824,9 +1197,22 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   <div class="col">
     <div class="ref-enter-card" id="ref-enter-card">
       <div class="rel-lbl">👥 Have a friend's referral code?</div>
-      <div class="rel-sub">Enter once — win a random bonus!</div>
+      <div class="rel-sub">Enter their code — win a random bonus!</div>
       <div class="ref-prize-badge">🎁 Win 10–100 coins randomly!</div>
-      <div class="ref-input-row">
+
+      <!-- Progress toward 50 ads unlock -->
+      <div id="ref-ads-progress" style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:5px">
+          <span style="color:var(--text)">Watch 50 ads to unlock</span>
+          <span style="color:var(--or)" id="ref-ads-count">0/50</span>
+        </div>
+        <div style="height:7px;background:var(--bg2);border-radius:50px;overflow:hidden;margin-bottom:6px">
+          <div id="ref-ads-bar" style="height:100%;background:linear-gradient(90deg,var(--or),var(--or2));border-radius:50px;width:0%;transition:width .4s"></div>
+        </div>
+        <div style="font-size:10px;color:var(--sub);font-weight:600" id="ref-ads-hint">Keep watching ads to unlock referral code entry!</div>
+      </div>
+
+      <div class="ref-input-row" id="ref-input-row" style="opacity:.4;pointer-events:none">
         <input class="ref-code-input" id="refCodeInp" maxlength="9" placeholder="COIN-XXXX" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9\-]/g,'')">
         <button class="btn btn-pu btn-md" id="refApplyBtn" onclick="applyRefCode()">Apply</button>
       </div>
@@ -842,6 +1228,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
     <div class="stg-row" onclick="tS('notif')"><div class="stg-l"><span class="stg-ico">🔔</span><span class="stg-name">Notifications</span></div><div class="tgl on" id="tg-notif"></div></div>
     <div class="stg-row" onclick="tS('sound')"><div class="stg-l"><span class="stg-ico">🔊</span><span class="stg-name">Sound Effects</span></div><div class="tgl on" id="tg-sound"></div></div>
     <div class="stg-row" onclick="toggleDark()"><div class="stg-l"><span class="stg-ico">🌙</span><span class="stg-name">Dark Mode</span></div><div class="tgl" id="tg-dark"></div></div>
+    <div class="stg-row" onclick="doSignOut()"><div class="stg-l"><span class="stg-ico" style="color:var(--bl)">🔓</span><span class="stg-name" style="color:var(--bl)">Sign Out</span></div></div>
     <div class="stg-row" onclick="doReset()"><div class="stg-l"><span class="stg-ico" style="color:var(--rd)">🗑</span><span class="stg-name" style="color:var(--rd)">Reset All Data</span></div></div>
   </div>
 </div>
@@ -885,15 +1272,15 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
     <!-- Crypto address field -->
     <div id="m-crypto-wrap" style="display:none;margin-bottom:10px">
       <div class="m-uid-lbl" style="margin-bottom:3px;color:var(--pu);font-size:11px;font-weight:800">ENTER YOUR WALLET ADDRESS</div>
-      <div id="m-crypto-network" style="font-size:10px;color:var(--sub);margin-bottom:7px;font-weight:600">Network: BEP-20</div>
+      <div id="m-crypto-network" style="font-size:10px;color:var(--sub);margin-bottom:7px;font-weight:600">Network: —</div>
       <input id="m-crypto-input"
         style="width:100%;background:var(--bg2);border:2px solid var(--border2);border-radius:var(--r-sm);padding:12px 14px;font-family:monospace;font-size:12px;font-weight:700;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:5px;word-break:break-all"
-        placeholder="0x... or BNB wallet address"
+        placeholder="Enter your wallet address"
         onfocus="this.style.borderColor='var(--pu)'"
         onblur="this.style.borderColor='var(--border2)'">
       <div id="m-crypto-err" style="font-size:11px;font-weight:700;color:var(--rd);min-height:14px"></div>
       <div style="background:var(--pu-s);border-radius:8px;padding:8px 11px;font-size:10px;font-weight:700;color:var(--pu);margin-top:5px">
-        ⚠️ Only send to BEP-20 (BSC) network addresses. Wrong network = lost funds.
+        ⚠️ Double-check your wallet supports this coin's network. Wrong network = lost funds.
       </div>
     </div>
     <div class="m-uid-box">
@@ -970,7 +1357,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
 <!-- FIREBASE MODULE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
+// Analytics imported separately — optional, errors suppressed
 import {
   getFirestore,
   doc, getDoc, setDoc, deleteDoc, updateDoc,
@@ -979,6 +1366,14 @@ import {
   serverTimestamp, increment, arrayUnion,
   writeBatch, runTransaction
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
 const app = initializeApp({
   apiKey:"AIzaSyDeZtAvtzAnqJO2FdRdY4G-aKEr7kWEmoQ",
@@ -989,14 +1384,33 @@ const app = initializeApp({
   appId:"1:863060074870:web:e3a9ac7f663f14aee15a57",
   measurementId:"G-HCVW4QMT4N"
 });
-getAnalytics(app);
+// Analytics — optional, suppress errors
+try{ 
+  const { getAnalytics } = await import("https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js");
+  getAnalytics(app); 
+}catch(_){}
 const db = getFirestore(app);
+const auth = getAuth(app);
+
 window._fb = {
   db, doc, getDoc, setDoc, deleteDoc, updateDoc,
   collection, query, where, orderBy, limit,
   getDocs, onSnapshot,
   serverTimestamp, increment, arrayUnion,
   writeBatch, runTransaction, ready:true
+};
+// Force LOCAL persistence — session survives browser close/refresh/hosting change
+import("https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js").then(m=>{
+  m.setPersistence(auth, m.browserLocalPersistence).catch(e=>console.warn('persist:',e));
+}).catch(()=>{});
+
+window._auth = {
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  signOut
 };
 window.dispatchEvent(new Event('fb-ready'));
 </script>
@@ -1067,9 +1481,27 @@ const DAY_LABELS  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 /* ══════════════════════════
    UNIQUE USER ID
 ══════════════════════════ */
-function genUID(){ return 'CW-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,6).toUpperCase(); }
-let UID = localStorage.getItem('cw_uid')||'';
-if(!UID){ UID=genUID(); localStorage.setItem('cw_uid',UID); }
+// UID is now Firebase Auth UID — set after sign in
+let UID = '';
+let AUTH = null; // Firebase auth functions set after fb-ready
+window.addEventListener('fb-ready', ()=>{
+  AUTH = window._auth;
+  // onAuthStateChanged fires automatically on load
+  // The splash boot() function waits for this via window._authResolved
+  AUTH.onAuthStateChanged(AUTH.auth, async (user) => {
+    if (user) {
+      UID = user.uid;
+      localStorage.setItem('cw_uid', UID);
+      S.userEmail = user.email;
+      window._authUser = user;   // signed in
+    } else {
+      UID = '';
+      window._authUser = null;   // not signed in
+    }
+    // Signal boot() that auth check is complete
+    if (window._authResolve) { window._authResolve(); window._authResolve = null; }
+  });
+});
 
 /* ══════════════════════════
    STATE
@@ -1077,6 +1509,7 @@ if(!UID){ UID=genUID(); localStorage.setItem('cw_uid',UID); }
 const SK='cw8';
 const mkS=()=>({
   coins:0, total:0, adsAll:0, todayAds:0, bonusClaimed:false,
+  userEmail:'',
   streak:0, bestStreak:0,
   streakHistory:[],        // YYYY-MM-DD strings of claimed days
   monthlyCoins:0,          // coins earned THIS MONTH (for LB)
@@ -1088,30 +1521,17 @@ const mkS=()=>({
   achUnlocked:[],
   username:'CoinWatcher',
   refCode:'COIN-'+Math.random().toString(36).slice(2,6).toUpperCase(),
+  ptcToday:0, ptcTodayCoins:0,
   refCount:0, refApplied:false,
   totalSpent:0, totalRedeemedInr:0, pendingRequests:0,
   withdrawals:[], history:[],
   dark:false, settings:{notif:true,sound:true}
 });
 
-let S=(()=>{ try{ return Object.assign(mkS(),JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){ return mkS(); }})();
+let S=mkS(); // will be loaded properly in boot() after auth
 const save=()=>localStorage.setItem(SK,JSON.stringify(S));
 
-/* ── DAILY RESET ── */
-if(localStorage.getItem('cw8d')!==TODAY_KEY){
-  S.todayAds=0; S.bonusClaimed=false; S.watchedToday=[];
-  S.spinDone=false; S.spinUnlocked=false;
-  S.scratchDone=false; S.scratchUnlocked=false;
-  S.missionsDone=[];
-  localStorage.setItem('cw8d',TODAY_KEY); save();
-}
-
-/* ── MONTH RESET ── (monthlyCoins reset on new month) */
-if(S.currentMonth!==MONTH_KEY){
-  S.monthlyCoins=0;
-  S.currentMonth=MONTH_KEY;
-  save();
-}
+/* Daily reset and month reset now handled in boot() after auth */
 
 /* ── STREAK MISS CHECK ──
    If yesterday is NOT in streakHistory → user missed → reset streak to 0 */
@@ -1145,16 +1565,27 @@ const ADS=[
   {id:'a9',e:'💳',n:'Fintech App',d:'Cashback on payments',c:10,col:'ico-pu',tag:''},
   {id:'a10',e:'🎲',n:'Casino Game',d:'Win big today!',c:10,col:'ico-gd',tag:'bonus'},
 ];
-const REWARDS=[
+// REWARDS loaded from Firebase (admin can edit) — fallback to defaults if not set
+let REWARDS=[
   {ico:'🎮',name:'Google Play ₹20',coins:4000,inr:20},
   {ico:'🎮',name:'Google Play ₹50',coins:10000,inr:50},
   {ico:'🛒',name:'Amazon Pay ₹20',coins:4000,inr:20},
   {ico:'🛒',name:'Amazon Pay ₹50',coins:10000,inr:50},
   {ico:'💳',name:'UPI ₹30',coins:6000,inr:30,upi:true},
   {ico:'💳',name:'UPI ₹100',coins:20000,inr:100,upi:true},
-  {ico:'🪙',name:'LTC (Litecoin)',coins:10000,crypto:true,symbol:'LTC',network:'LITECOIN'},
-  {ico:'🟣',name:'SOL (Solana)',coins:10000,crypto:true,symbol:'SOL',network:'solana'},
+  {ico:'🪙',name:'LTC (Litecoin)',coins:10000,crypto:true,symbol:'LTC',network:'Litecoin'},
+  {ico:'🟣',name:'SOL (Solana)',coins:10000,crypto:true,symbol:'SOL',network:'Solana'},
 ];
+async function loadRewardsFromFirebase(){
+  if(!FB) return;
+  try{
+    const snap=await FB.getDoc(FB.doc(FB.db,'config','rewards'));
+    if(snap.exists()&&snap.data().list&&snap.data().list.length){
+      REWARDS=snap.data().list;
+      render(); // refresh redeem page with new rewards
+    }
+  }catch(e){console.warn('rewards load:',e);}
+}
 const LEVELS=[{l:1,n:'Beginner',xp:100},{l:2,n:'Explorer',xp:250},{l:3,n:'Earner',xp:500},{l:4,n:'Hustler',xp:1000},{l:5,n:'Pro',xp:2000},{l:6,n:'Elite',xp:5000},{l:7,n:'Legend',xp:99999}];
 const MISSIONS=[
   {id:'m1',e:'📺',n:'Watch 3 Ads',desc:'Watch 3 ads today',target:3,key:'todayAds',reward:20,col:'ico-or'},
@@ -1199,7 +1630,7 @@ window.addEventListener('fb-ready',()=>{ FB=window._fb; });
 
 /* Save user profile + monthly coins to Firestore */
 async function fbSaveUser(extra={}){
-  if(!FB) return;
+  if(!FB||!UID) return; // Guard: never call with empty UID
   try{
     await FB.setDoc(FB.doc(FB.db,'users',UID),{
       uid:UID,
@@ -1235,7 +1666,7 @@ async function fbSaveUser(extra={}){
    Works across any hosting — Netlify, Vercel, GitHub, etc.
    Firebase is the single source of truth */
 async function fbLoadUser(){
-  if(!FB) return;
+  if(!FB||!UID) return; // Guard: never call with empty UID
   try{
     const snap=await FB.getDoc(FB.doc(FB.db,'users',UID));
     if(snap.exists()){
@@ -1290,7 +1721,7 @@ async function fbCheckUsername(name){
 
 /* Claim username */
 async function fbClaimUsername(name){
-  if(!FB) return false;
+  if(!FB||!UID) return false;
   try{
     if(S.username&&S.username!=='CoinWatcher'){
       try{ await FB.deleteDoc(FB.doc(FB.db,'usernames',S.username.toLowerCase())); }catch(_){}
@@ -1316,7 +1747,7 @@ let lbUnsub=null;
    onSnapshot = live updates for ALL users instantly.
 ══════════════════════════════════════════════════ */
 async function fbLoadLeaderboard(){
-  if(!FB){ renderLbEmpty('Offline — connect internet to see live leaderboard'); return; }
+  if(!FB||!UID){ renderLbEmpty('Offline — connect internet to see live leaderboard'); return; }
 
   // Skeleton rows
   document.getElementById('lb-pod').innerHTML='';
@@ -1499,7 +1930,7 @@ function updateMyRank(users){
    Runs once per month via Firestore flag
 ══════════════════════════ */
 async function checkAndDistributeRewards(){
-  if(!FB) return;
+  if(!FB||!UID) return;
   try{
     const prevMonth=monthKey(new Date(NOW.getFullYear(),NOW.getMonth()-1,1));
     const rewardDocRef=FB.doc(FB.db,'system','monthly_reward_'+prevMonth);
@@ -1637,7 +2068,7 @@ function claimStreak(){
   checkAch(); checkMissions(); checkLevel(); save();
   // Save streak to Firestore
   if(FB){
-    FB.setDoc(FB.doc(FB.db,'users',UID),{
+    if(UID) FB.setDoc(FB.doc(FB.db,'users',UID),{
       streak:S.streak, bestStreak:S.bestStreak,
       streakHistory:FB.arrayUnion(TODAY_KEY),
       updatedAt:FB.serverTimestamp()
@@ -2133,6 +2564,11 @@ async function applyRefCode(){
   const code=document.getElementById('refCodeInp').value.trim().toUpperCase();
   const msgEl=document.getElementById('ref-status-msg'),btn=document.getElementById('refApplyBtn');
   if(S.refApplied){ toast('Already used a referral code!','r'); return; }
+  // Must watch 50 ads before applying referral code
+  if((S.adsAll||0)<50){
+    msgEl.textContent='Watch 50 ads first! ('+S.adsAll+'/50 done)';
+    msgEl.className='ref-status-msg err'; return;
+  }
   if(!code||code.length<7){ msgEl.textContent='Enter a valid code e.g. COIN-XXXX'; msgEl.className='ref-status-msg err'; return; }
   if(code===S.refCode){ msgEl.textContent="You can't use your own code!"; msgEl.className='ref-status-msg err'; return; }
   btn.disabled=true; btn.textContent='...';
@@ -2224,7 +2660,7 @@ async function submitRedeem(){
   S.withdrawals.unshift(wObj);
   addH({e:'🎁',n:'Requested: '+name,amt:'-'+coins,type:'spend'});
   checkAch(); save(); render(); closeModal();
-  if(FB){
+  if(FB&&UID){
     try{
       await FB.setDoc(FB.doc(FB.db,'users',UID),{withdrawals:S.withdrawals,coins:S.coins,totalSpent:S.totalSpent,updatedAt:FB.serverTimestamp()},{merge:true});
       toast('✅ Request sent to admin!','g');
@@ -2337,7 +2773,15 @@ function toggleDark(){
 }
 function tS(k){ S.settings[k]=!S.settings[k]; document.getElementById('tg-'+k).classList.toggle('on',S.settings[k]); save(); }
 function copyUID(){ if(navigator.clipboard) navigator.clipboard.writeText(UID).then(()=>toast('User ID copied!','g')); else toast('ID: '+UID); }
-function doReset(){ if(!confirm('Reset ALL local data? Cannot undo!')) return; localStorage.removeItem(SK); localStorage.removeItem('cw8d'); localStorage.removeItem('cw_uid'); UID=genUID(); localStorage.setItem('cw_uid',UID); S=mkS(); save(); render(); toast('Data reset'); }
+async function doReset(){
+  if(!confirm('Reset ALL local data? Cannot undo!')) return;
+  localStorage.removeItem(SK);
+  localStorage.removeItem('cw8d');
+  localStorage.removeItem('cw_uid');
+  S=mkS(); save(); render(); toast('Data reset');
+  // Also sign out
+  if(AUTH){ try{ await AUTH.signOut(AUTH.auth); }catch(_){} }
+}
 
 /* ══════════════════════════
    NAVIGATION
@@ -2391,6 +2835,8 @@ function render(){
   document.getElementById('sb-str-dot').style.display=!strToday?'inline':'none';
   document.getElementById('sb-redeem-dot').style.display=(S.coins>=2000)?'inline':'none';
   document.getElementById('ph-name').textContent=S.username||'CoinWatcher';
+  const emailEl=document.getElementById('ph-email-txt');
+  if(emailEl&&S.userEmail) emailEl.textContent='📧 '+S.userEmail;
   document.getElementById('ph-uid-txt').textContent=UID;
   renderWeekGrid();
   document.getElementById('str-num').textContent=S.streak;
@@ -2435,9 +2881,32 @@ function render(){
   document.getElementById('sc-list').innerHTML=SCRATCH_PRIZES.map(p=>`<div class="card cp" style="display:flex;align-items:center;gap:11px"><div style="font-size:20px">${p.e}</div><div style="flex:1;font-size:12px;font-weight:700;color:var(--text)">${p.label}</div></div>`).join('');
   checkAch();
   document.getElementById('ach-grid').innerHTML=ACHIEVEMENTS.map(a=>{ const un=S.achUnlocked.includes(a.id); return`<div class="ach ${un?'':'locked'}"><div class="ach-ico">${a.e}</div><div class="ach-name">${a.n}</div><div class="ach-desc">${a.desc}</div></div>`; }).join('');
+  // Survey and PTC
+  renderSurveyList();
+  renderPTCList();
   document.getElementById('hist-list').innerHTML=S.history.length?S.history.map(h=>`<div class="hi"><div class="hi-ico" style="background:${h.type==='earn'?'var(--gr-s)':'var(--rd-s)'}">${h.e}</div><div class="hi-body"><div class="hi-name">${h.n}</div><div class="hi-time">${h.time} · ${h.date}</div></div><div class="hi-amt ${h.type==='earn'?'ec':'sc2'}">${h.type==='earn'?'+':''}${h.amt}</div></div>`).join(''):'<div class="empty">No activity yet.</div>';
   document.getElementById('ref-code-display').textContent=S.refCode;
   document.getElementById('ref-cnt').textContent=S.refCount;
+  // Referral ads progress
+  const adsWatched=Math.min(S.adsAll||0,50);
+  const refPct=adsWatched/50*100;
+  const refUnlocked=adsWatched>=50;
+  const refAdsCount=document.getElementById('ref-ads-count');
+  const refAdsBar=document.getElementById('ref-ads-bar');
+  const refAdsHint=document.getElementById('ref-ads-hint');
+  const refInputRow=document.getElementById('ref-input-row');
+  const refProgress=document.getElementById('ref-ads-progress');
+  if(refAdsCount) refAdsCount.textContent=adsWatched+'/50';
+  if(refAdsBar) refAdsBar.style.width=refPct+'%';
+  if(refInputRow){
+    refInputRow.style.opacity=refUnlocked?'1':'0.4';
+    refInputRow.style.pointerEvents=refUnlocked?'auto':'none';
+  }
+  if(refAdsHint){
+    if(refUnlocked) refAdsHint.textContent='✅ Unlocked! Enter your friend\'s code below.';
+    else refAdsHint.textContent=(50-adsWatched)+' more ads to unlock referral code entry';
+  }
+  if(refProgress) refProgress.style.display=refUnlocked?'none':'block';
   const rec=document.getElementById('ref-enter-card'),rac=document.getElementById('ref-applied-card');
   if(rec) rec.style.display=S.refApplied?'none':'block';
   if(rac) rac.style.display=S.refApplied?'block':'none';
@@ -2461,6 +2930,427 @@ function render(){
 ══════════════════════════ */
 
 /* ══════════════════════════
+   AUTH FUNCTIONS
+══════════════════════════ */
+
+function showAuthScreen(){
+  document.getElementById('auth-screen').classList.add('visible');
+  document.getElementById('splash').classList.add('hide');
+  setTimeout(()=>document.getElementById('splash').style.display='none',400);
+  const tb=document.getElementById('main-topbar');
+  if(tb) tb.style.display='none';
+  ['si-btn','su-btn'].forEach(id=>{
+    const b=document.getElementById(id);
+    if(b){b.disabled=false;b.textContent=id==='si-btn'?'🔑 Sign In':'🚀 Create Account';}
+  });
+}
+function hideAuthScreen(){
+  document.getElementById('auth-screen').classList.remove('visible');
+  document.querySelectorAll('.topbar,.sidebar,.sb-ov,.page').forEach(el=>el.style.visibility='visible');
+  const tb=document.getElementById('main-topbar');
+  if(tb) tb.style.display='';
+}
+
+function switchAuthTab(tab){
+  document.getElementById('tab-signin').classList.toggle('active',tab==='signin');
+  document.getElementById('tab-signup').classList.toggle('active',tab==='signup');
+  document.getElementById('form-signin').style.display=tab==='signin'?'flex':'none';
+  document.getElementById('form-signup').style.display=tab==='signup'?'flex':'none';
+  clearAuthErr();
+}
+function clearAuthErr(){
+  ['si-err','su-err'].forEach(id=>{
+    const e=document.getElementById(id);
+    if(e){ e.textContent=''; e.className='auth-err'; e.style.color=''; }
+  });
+}
+function setAuthErr(id, msg){
+  const e=document.getElementById(id);
+  if(e){ e.textContent=msg; e.className='auth-err'; e.style.color=''; }
+}
+function toggleEye(inputId, btn){
+  const inp=document.getElementById(inputId);
+  inp.type=inp.type==='password'?'text':'password';
+  btn.textContent=inp.type==='password'?'👁':'🙈';
+  btn.style.opacity=inp.type==='text'?'1':'0.5';
+}
+function checkPwStrength(inp){
+  const v=inp.value;
+  const bar=document.getElementById('pw-strength');
+  const lbl=document.getElementById('pw-strength-lbl');
+  if(!v){bar.className='pw-strength';bar.style.width='0';if(lbl)lbl.textContent='';return;}
+  const strong=v.length>=8&&/[A-Z]/.test(v)&&/[0-9]/.test(v);
+  const medium=v.length>=6;
+  const cls=strong?'strong':medium?'medium':'weak';
+  bar.className='pw-strength '+cls;
+  if(lbl){lbl.className='pw-strength-lbl '+cls;lbl.textContent=strong?'Strong password':medium?'Medium — add numbers/capitals':'Weak — too short';}
+}
+function authErrMsg(code){
+  const msgs={
+    'auth/email-already-in-use':'Email already has an account. Sign in instead.',
+    'auth/invalid-email':'Invalid email address.',
+    'auth/weak-password':'Password must be at least 6 characters.',
+    'auth/wrong-password':'Wrong password. Try again.',
+    'auth/user-not-found':'No account with this email. Create one!',
+    'auth/invalid-credential':'Wrong email or password.',
+    'auth/network-request-failed':'No internet connection.',
+    'auth/too-many-requests':'Too many attempts. Try again later.',
+  };
+  return msgs[code]||'Something went wrong. Try again.';
+}
+
+async function doSignIn(){
+  if(!AUTH){toast('Not connected. Retry.','r');return;}
+  const email=document.getElementById('si-email').value.trim();
+  const pass=document.getElementById('si-pass').value;
+  if(!email||!pass){document.getElementById('si-err').textContent='Enter email and password';return;}
+  clearAuthErr();
+  const btn=document.getElementById('si-btn');
+  btn.disabled=true; btn.textContent='Signing in...';
+  try{
+    await AUTH.signInWithEmailAndPassword(AUTH.auth,email,pass);
+    // onAuthStateChanged fires → sets _authUser → triggers page reload via location.reload()
+    // This ensures a clean boot with splash
+    location.reload();
+  }catch(e){
+    setAuthErr('si-err',authErrMsg(e.code));
+    btn.disabled=false; btn.textContent='🔑 Sign In';
+  }
+}
+
+// OTP state
+let _otpCode = '';
+let _otpEmail = '';
+let _otpPass  = '';
+let _otpTimer = null;
+let _otpExpiry = 0;
+let _otpResendTimer = null;
+
+async function doSignUp(){
+  if(!AUTH){toast('Not connected. Retry.','r');return;}
+  const email=document.getElementById('su-email').value.trim();
+  const pass=document.getElementById('su-pass').value;
+  const pass2=document.getElementById('su-pass2').value;
+  if(!email){setAuthErr('su-err','Enter your email');return;}
+  if(!/[^@]+@[^@]+\.[^@]+/.test(email)){setAuthErr('su-err','Enter a valid email address');return;}
+  if(pass.length<6){setAuthErr('su-err','Password must be at least 6 characters');return;}
+  if(pass!==pass2){setAuthErr('su-err','Passwords do not match');return;}
+  clearAuthErr();
+  const btn=document.getElementById('su-btn');
+  btn.disabled=true; btn.textContent='Checking email...';
+
+  // ── Step 1: Check if email is already registered ──
+  try{
+    const FBKEY='AIzaSyDeZtAvtzAnqJO2FdRdY4G-aKEr7kWEmoQ';
+    const chkRes=await fetch(
+      'https://identitytoolkit.googleapis.com/v1/accounts:fetchSignInMethodsForEmail?key='+FBKEY,
+      {method:'POST',headers:{'Content-Type':'application/json'},
+       body:JSON.stringify({identifier:email,continueUri:'https://watchadearn.gamer.gd'})}
+    );
+    const chkData=await chkRes.json();
+    const methods=chkData.signinMethods||[];
+    if(methods.length>0){
+      // Email already registered
+      setAuthErr('su-err','⚠️ This email is already registered. Please sign in instead.');
+      btn.disabled=false; btn.textContent='🚀 Create Account';
+      // Switch to sign-in tab and pre-fill email
+      document.querySelector('.auth-tab')?.click();
+      const siEmail=document.getElementById('si-email');
+      if(siEmail) siEmail.value=email;
+      return;
+    }
+  }catch(chkErr){
+    console.warn('Email check failed, proceeding anyway:',chkErr);
+    // If check fails, continue — Firebase will catch duplicate on create
+  }
+
+  // ── Step 2: Send OTP ──
+  btn.textContent='Sending code...';
+  try{
+    await sendOTP(email);
+    _otpEmail=email; _otpPass=pass;
+    document.getElementById('otp-email-display').textContent=email;
+    showOTPScreen();
+    btn.disabled=false; btn.textContent='🚀 Create Account';
+  }catch(e){
+    setAuthErr('su-err','Failed to send code. Check your email and try again.');
+    btn.disabled=false; btn.textContent='🚀 Create Account';
+    console.warn('OTP send error:',e);
+  }
+}
+
+async function sendOTP(email){
+  // Generate 6-digit OTP
+  _otpCode = String(Math.floor(100000+Math.random()*900000));
+  _otpExpiry = Date.now() + 10*60*1000; // 10 minutes
+
+  // ── Try EmailJS first ──
+  const ejKey = window.EMAILJS_PUBLIC_KEY;
+  if(ejKey && ejKey !== 'YOUR_PUBLIC_KEY' && window.emailjs){
+    try{
+      window.emailjs.init({publicKey: ejKey});
+      await window.emailjs.send(
+        window.EMAILJS_SERVICE_ID,
+        window.EMAILJS_TEMPLATE_ID,
+        {
+          to_email: email,
+          otp_code: _otpCode,
+          expiry_minutes: '10',
+        }
+      );
+      console.log('OTP sent via EmailJS ✅');
+      return;
+    }catch(ejErr){
+      console.warn('EmailJS failed (limit or error):', ejErr.text||ejErr, '— falling back to Brevo...');
+    }
+  }
+
+  // ── Fallback: Brevo (Sendinblue) API ──
+  await sendOTPBrevo(email);
+}
+
+async function sendOTPBrevo(email){
+  // Brevo transactional email API
+  const BREVO_API  = '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';
+  const TEMPLATE   = 5;
+  const SENDER_EMAIL = 'gamringhackking@gmail.com';
+  const SENDER_NAME  = 'CoinWatch';
+
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'api-key': BREVO_API,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({
+      templateId: TEMPLATE,
+      to: [{ email: email }],
+      sender: { name: 'CoinWatch', email: 'no-reply-watchadearnOTP@outlook.com' },
+      params: {
+        otp_code: _otpCode,
+        expiry_minutes: '10',
+        to_email: email,
+      }
+    })
+  });
+
+  if(!res.ok){
+    const err = await res.json().catch(()=>({}));
+    throw new Error('Brevo error: '+(err.message||res.status));
+  }
+  console.log('OTP sent via Brevo ✅');
+}
+
+function showOTPScreen(){
+  // Clear all boxes
+  for(let i=0;i<6;i++){
+    const b=document.getElementById('otp'+i);
+    if(b){b.value='';b.className='otp-box';}
+  }
+  const errEl=document.getElementById('otp-err');
+  if(errEl){errEl.textContent='';errEl.className='otp-err-box';}
+  const timerEl=document.getElementById('otp-timer');
+  if(timerEl) timerEl.textContent='Code expires in 10:00';
+  const resendBtn=document.getElementById('otp-resend');
+  if(resendBtn){resendBtn.disabled=true;resendBtn.textContent='Resend Code';}
+  const verifyBtn=document.getElementById('otp-verify-btn');
+  if(verifyBtn){verifyBtn.disabled=false;verifyBtn.textContent='✅ Verify & Create Account';}
+
+  // Show OTP screen (on top of auth screen)
+  const otpScreen=document.getElementById('otp-screen');
+  otpScreen.classList.add('visible');
+  // Focus first box after transition
+  setTimeout(()=>document.getElementById('otp0')?.focus(),350);
+  // Start countdown
+  startOTPTimer();
+}
+
+function startOTPTimer(){
+  clearInterval(_otpTimer);
+  const resendBtn=document.getElementById('otp-resend');
+  if(resendBtn) resendBtn.disabled=true;
+  _otpTimer=setInterval(()=>{
+    const remaining=_otpExpiry-Date.now();
+    if(remaining<=0){
+      clearInterval(_otpTimer);
+      document.getElementById('otp-timer').textContent='Code expired. Request a new one.';
+      if(resendBtn) resendBtn.disabled=false;
+      return;
+    }
+    const m=Math.floor(remaining/60000);
+    const s=Math.floor((remaining%60000)/1000);
+    document.getElementById('otp-timer').textContent='Code expires in '+m+':'+(s<10?'0':'')+s;
+    // Enable resend after 60s
+    if(remaining<9*60*1000&&resendBtn) resendBtn.disabled=false;
+  },1000);
+}
+
+function otpInput(el, idx){
+  // Only allow numbers
+  el.value=el.value.replace(/[^0-9]/g,'');
+  if(el.value) el.classList.add('filled');
+  else el.classList.remove('filled');
+  // Auto advance to next box
+  if(el.value&&idx<5) document.getElementById('otp'+(idx+1))?.focus();
+  // Auto verify when all 6 filled
+  if(idx===5&&el.value) autoVerifyOTP();
+}
+
+function otpKey(e, idx){
+  // Backspace goes to prev box
+  if(e.key==='Backspace'&&!e.target.value&&idx>0){
+    document.getElementById('otp'+(idx-1))?.focus();
+  }
+  if(e.key==='Enter') verifyOTP();
+}
+
+function autoVerifyOTP(){
+  const code=Array.from({length:6},(_,i)=>document.getElementById('otp'+i)?.value||'').join('');
+  if(code.length===6) setTimeout(verifyOTP,200);
+}
+
+async function verifyOTP(){
+  const code=Array.from({length:6},(_,i)=>document.getElementById('otp'+i)?.value||'').join('');
+  const errEl=document.getElementById('otp-err');
+  if(code.length<6){errEl.className='otp-err-box';errEl.textContent='Enter all 6 digits';return;}
+  if(Date.now()>_otpExpiry){errEl.className='otp-err-box';errEl.textContent='Code expired. Request a new one.';return;}
+  if(code!==_otpCode){
+    errEl.className='otp-err-box';errEl.textContent='Wrong code. Check your email and try again.';
+    // Shake the boxes
+    document.querySelectorAll('.otp-box').forEach(b=>b.classList.add('err'));
+    setTimeout(()=>document.querySelectorAll('.otp-box').forEach(b=>b.classList.remove('err')),600);
+    return;
+  }
+  // Code correct — create account
+  const btn=document.getElementById('otp-verify-btn');
+  btn.disabled=true; btn.textContent='Creating account...';
+  errEl.className='otp-err-box ok-msg'; errEl.textContent='✅ Verified! Creating your account...';
+  try{
+    await AUTH.createUserWithEmailAndPassword(AUTH.auth,_otpEmail,_otpPass);
+    clearInterval(_otpTimer);
+    // Small delay to ensure auth session is saved before reload
+    await new Promise(r=>setTimeout(r,800));
+    location.reload();
+  }catch(e){
+    errEl.className='otp-err-box'; errEl.textContent=authErrMsg(e.code);
+    btn.disabled=false; btn.textContent='✅ Verify & Create Account';
+  }
+}
+
+async function resendOTP(){
+  // Check daily resend limit — 1 resend allowed (first send + 1 resend = 2 total)
+  const resendKey='cw_otp_resend_'+new Date().toLocaleDateString().replace(/\//g,'-')+'_'+(_otpEmail||'');
+  const resendCount=parseInt(localStorage.getItem(resendKey)||'0');
+  if(resendCount>=1){
+    const errEl=document.getElementById('otp-err');
+    errEl.className='otp-err-box';
+    errEl.textContent='Resend limit reached. Only 1 resend allowed per day.';
+    document.getElementById('otp-resend').disabled=true;
+    document.getElementById('otp-resend').textContent='Limit reached';
+    return;
+  }
+  const btn=document.getElementById('otp-resend');
+  btn.disabled=true; btn.textContent='Sending...';
+  try{
+    await sendOTP(_otpEmail);
+    // Increment resend count
+    localStorage.setItem(resendKey, String(resendCount+1));
+    // Update button — used up the 1 resend
+    btn.disabled=true;
+    btn.textContent='Resend used (1/1)';
+    const errEl=document.getElementById('otp-err');
+    errEl.className='otp-err-box ok-msg';
+    errEl.textContent='✅ New code sent! This was your last resend.';
+    startOTPTimer();
+    for(let i=0;i<6;i++){const b=document.getElementById('otp'+i);if(b){b.value='';b.className='otp-box';}}
+    document.getElementById('otp0')?.focus();
+  }catch(e){
+    document.getElementById('otp-err').className='otp-err-box';
+    document.getElementById('otp-err').textContent='Failed to resend. Try again.';
+    btn.disabled=false;
+    btn.textContent='Resend Code';
+  }
+}
+
+function cancelOTP(){
+  clearInterval(_otpTimer);
+  document.getElementById('otp-screen').classList.remove('visible');
+  _otpCode=''; _otpEmail=''; _otpPass='';
+}
+
+async function doForgotPassword(){
+  const errEl=document.getElementById('si-err');
+  errEl.style.color='';errEl.className='auth-err';
+  if(!AUTH){setAuthErr('si-err','No internet connection');return;}
+  const email=document.getElementById('si-email').value.trim();
+  if(!email){setAuthErr('si-err','Enter your email address first');return;}
+  if(!email.includes('@')){setAuthErr('si-err','Enter a valid email address');return;}
+  const btn=document.querySelector('.auth-forgot');
+  if(btn){btn.disabled=true;btn.textContent='Sending...';}
+  errEl.textContent='Sending reset link...';
+
+  const WORKER_URL='https://empty-tooth-6c26.notuse1006.workers.dev';
+  console.log('[Reset] Calling worker:', WORKER_URL);
+
+  try{
+    const res=await fetch(WORKER_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email})
+    });
+    console.log('[Reset] Worker response status:', res.status);
+    const data=await res.json().catch(()=>({}));
+    console.log('[Reset] Worker response data:', JSON.stringify(data));
+
+    if(data.success){
+      errEl.className='auth-err ok-msg';
+      errEl.textContent='✅ Reset link sent to '+email+'. Check inbox & spam!';
+      if(btn){btn.disabled=false;btn.textContent='Forgot password?';}
+      return;
+    }
+    // Worker returned error — show the real error
+    const workerErr=data.error||data.debug_error||('HTTP '+res.status);
+    console.error('[Reset] Worker error:', workerErr);
+    setAuthErr('si-err','❌ '+workerErr);
+    if(btn){btn.disabled=false;btn.textContent='Forgot password?';}
+    return;
+  }catch(fetchErr){
+    console.error('[Reset] Worker fetch failed:', fetchErr.message);
+    errEl.textContent='Worker unreachable, trying Firebase fallback...';
+  }
+
+  // Fallback — Firebase default email (plain but works)
+  console.log('[Reset] Using Firebase fallback...');
+  try{
+    await AUTH.sendPasswordResetEmail(AUTH.auth,email,{
+      url:'https://watchadearn.gamer.gd/reset-password.html',
+      handleCodeInApp:false
+    });
+    errEl.className='auth-err ok-msg';
+    errEl.textContent='✅ Reset link sent to '+email+' (Firebase). Check inbox & spam!';
+    console.log('[Reset] Firebase fallback success');
+  }catch(e){
+    console.error('[Reset] Firebase error:', e.code, e.message);
+    setAuthErr('si-err',authErrMsg(e.code));
+  }
+  if(btn){btn.disabled=false;btn.textContent='Forgot password?';}
+}
+
+async function doSignOut(){
+  if(!AUTH) return;
+  if(!confirm('Sign out of CoinWatch?')) return;
+  try{
+    await AUTH.signOut(AUTH.auth);
+    window._authUser = null;
+    localStorage.removeItem(SK);
+    localStorage.removeItem('cw8d');
+    toast('Signed out','n');
+    setTimeout(()=>location.reload(), 600);
+  }catch(e){toast('Error signing out','r');}
+}
+
+/* ══════════════════════════
    BOOT — Firebase loads DURING splash bar
    
    3 phases:
@@ -2472,8 +3362,246 @@ function render(){
    the phase completes. Firebase MUST be
    connected before splash hides.
 ══════════════════════════ */
+
+/* ══════════════════════════
+   NOTIFICATIONS
+══════════════════════════ */
+const NOTIF_KEY = 'cw_notifs';
+
+function getNotifs(){
+  try{ return JSON.parse(localStorage.getItem(NOTIF_KEY)||'[]'); }catch(e){ return []; }
+}
+function saveNotifs(arr){ localStorage.setItem(NOTIF_KEY, JSON.stringify(arr.slice(0,50))); }
+
+function addNotif(ico, title, msg){
+  const arr = getNotifs();
+  arr.unshift({ id: Date.now(), ico, title, msg, time: new Date().toLocaleString(), read: false });
+  saveNotifs(arr);
+  renderNotifDot();
+}
+
+function renderNotifDot(){
+  const arr = getNotifs();
+  const unread = arr.filter(n=>!n.read).length;
+  const dot = document.getElementById('notif-dot');
+  if(dot) dot.className = 'notif-dot' + (unread>0?' show':'');
+}
+
+function toggleNotifDrop(e){
+  e.stopPropagation();
+  const drop = document.getElementById('notif-drop');
+  const isOpen = drop.classList.toggle('open');
+  if(isOpen){ renderNotifList(); markAllRead(); }
+}
+
+function renderNotifList(){
+  const arr = getNotifs();
+  const el = document.getElementById('notif-list');
+  if(!arr.length){ el.innerHTML='<div class="notif-empty">No notifications yet 🔕</div>'; return; }
+  el.innerHTML = arr.map(n=>`
+    <div class="notif-item ${n.read?'':'unread'}">
+      <div class="ni-row">
+        <div class="ni-ico">${n.ico||'📢'}</div>
+        <div class="ni-body">
+          <div class="ni-title">${n.title||'Notification'}</div>
+          <div class="ni-msg">${n.msg||''}</div>
+          <div class="ni-time">${n.time||''}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function markAllRead(){
+  const arr = getNotifs().map(n=>({...n,read:true}));
+  saveNotifs(arr);
+  renderNotifDot();
+}
+
+function clearNotifications(){
+  saveNotifs([]);
+  renderNotifDot();
+  renderNotifList();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', e=>{
+  const drop = document.getElementById('notif-drop');
+  if(drop && !drop.contains(e.target) && e.target.id!=='notifBtn'){
+    drop.classList.remove('open');
+  }
+});
+
+// Check Firebase for new notifications for this user on boot
+async function checkFirebaseNotifications(){
+  if(!FB||!UID) return;
+  const lastSeen = parseInt(localStorage.getItem('cw_notif_seen_'+UID)||'0');
+  const processMessages = (msgs, tag) => {
+    msgs.forEach(m=>{
+      const ts = (m.sentAt?.seconds||0)*1000;
+      if(ts > lastSeen) addNotif(m.ico||'📢', m.title||'From Admin', m.body||'');
+    });
+  };
+  try{
+    // Check user-specific notifications
+    const snap = await FB.getDoc(FB.doc(FB.db,'notifications',UID));
+    if(snap.exists()) processMessages(snap.data().messages||[], 'user');
+    // Check broadcast notifications
+    const bcast = await FB.getDoc(FB.doc(FB.db,'notifications','broadcast'));
+    if(bcast.exists()) processMessages(bcast.data().messages||[], 'broadcast');
+    // Update last seen
+    localStorage.setItem('cw_notif_seen_'+UID, String(Date.now()));
+  }catch(e){ console.warn('notif check:',e); }
+}
+
+
+/* ══════════════════════════
+   SURVEY SYSTEM
+══════════════════════════ */
+function openSurveyWall(){
+  // Open CPX Research survey wall — replace YOUR_APP_ID with your CPX app ID
+  const CPX_APP_ID = 'YOUR_CPX_APP_ID';
+  const url = `https://offers.cpx-research.com/index.php?app_id=${CPX_APP_ID}&ext_user_id=${UID}&secure_hash=&output_method=web_offerwall`;
+  window.open(url, '_blank');
+  toast('Survey wall opened! Complete surveys to earn.','g');
+}
+
+function startSurvey(type, coins){
+  // Show interstitial ad first, then open survey
+  startAd(null, ()=>{
+    // After ad, give survey bonus
+    earn(coins,'📋 Survey Bonus: +'+coins+'!','p');
+    S.total+=coins; S.monthlyCoins+=coins; S.xp+=10;
+    addH({e:'📋',n:'Completed Survey: '+type,amt:'+'+coins,type:'earn'});
+    checkLevel(); checkAch(); save(); render(); fbSaveUser();
+    toast('🎉 Survey complete! +'+coins+' coins!','g');
+    // Mark survey done (prevent abuse — 1 per type per day)
+    const key='sv_'+type+'_'+TODAY_KEY;
+    localStorage.setItem(key,'1');
+    renderSurveyList();
+  });
+}
+
+function renderSurveyList(){
+  // Check which surveys done today
+  const surveys=[
+    {id:'market',ico:'📊',name:'Market Research Survey',desc:'Share your shopping habits',coins:50,minutes:5,bg:'var(--or-s)'},
+    {id:'gaming',ico:'🎮',name:'Gaming Preferences',desc:'Tell us about your gaming habits',coins:80,minutes:8,bg:'var(--bl-s)'},
+    {id:'shopping',ico:'🛒',name:'Online Shopping Survey',desc:'Rate your e-commerce experience',coins:120,minutes:12,bg:'var(--pu-s)'},
+  ];
+  const el=document.getElementById('survey-list');
+  if(!el) return;
+  el.innerHTML=surveys.map(s=>{
+    const done=localStorage.getItem('sv_'+s.id+'_'+TODAY_KEY);
+    return`<div class="sv-card">
+      <div class="sv-ico" style="background:${s.bg}">${s.ico}</div>
+      <div class="sv-body">
+        <div class="sv-name">${s.name}</div>
+        <div class="sv-desc">${s.desc}</div>
+        <div class="sv-reward">🪙 +${s.coins} coins</div>
+        <div class="sv-time">⏱ ~${s.minutes} minutes</div>
+      </div>
+      ${done
+        ?'<div style="font-size:11px;font-weight:700;color:var(--gr);flex-shrink:0">✅ Done</div>'
+        :`<button class="btn btn-or btn-sm sv-btn" onclick="startSurvey('${s.id}',${s.coins})">Start</button>`
+      }
+    </div>`;
+  }).join('');
+}
+
+/* ══════════════════════════
+   PTC SYSTEM
+══════════════════════════ */
+const PTC_ADS=[
+  {id:'ptc1',ico:'🛍️',name:'ShopEasy Deal',url:'shopeasydeal.com',coins:5,secs:30,color:'#FF6B00'},
+  {id:'ptc2',ico:'📱',name:'MobileZone App',url:'mobilezone.app',coins:8,secs:30,color:'#1A6CFF'},
+  {id:'ptc3',ico:'💊',name:'HealthPlus Store',url:'healthplus.store',coins:10,secs:45,color:'#00C48C'},
+  {id:'ptc4',ico:'🎓',name:'LearnFast Courses',url:'learnfast.edu',coins:12,secs:45,color:'#7B5CF5'},
+  {id:'ptc5',ico:'🏠',name:'HomeDecor Pro',url:'homedecorpro.in',coins:6,secs:30,color:'#F5A623'},
+  {id:'ptc6',ico:'✈️',name:'TravelDeals India',url:'traveldeals.in',coins:15,secs:60,color:'#FF3B5C'},
+];
+
+let ptcTimer=null, ptcCurrent=null;
+
+function renderPTCList(){
+  const el=document.getElementById('ptc-list');
+  if(!el) return;
+  const todayPTC=S.ptcToday||0;
+  const maxPTC=10;
+  // Update header
+  const tc=document.getElementById('ptc-today-coins');
+  const tco=document.getElementById('ptc-today-count');
+  if(tc) tc.textContent=(S.ptcTodayCoins||0)+' 🪙';
+  if(tco) tco.textContent=todayPTC;
+
+  if(todayPTC>=maxPTC){
+    el.innerHTML='<div class="empty"><div style="font-size:36px;margin-bottom:10px">🎉</div><div style="font-size:13px;font-weight:700;color:var(--sub)">All PTC ads done for today!<br>Come back tomorrow for more.</div></div>';
+    return;
+  }
+  el.innerHTML=PTC_ADS.map(a=>{
+    const done=localStorage.getItem('ptc_'+a.id+'_'+TODAY_KEY);
+    return`<div class="ptc-card" id="ptccard-${a.id}">
+      <div class="ptc-top">
+        <div class="ptc-ico" style="background:${a.color}22;color:${a.color}">${a.ico}</div>
+        <div class="ptc-info">
+          <div class="ptc-name">${a.name}</div>
+          <div class="ptc-url">🔗 ${a.url}</div>
+          <div class="ptc-reward">🪙 +${a.coins} coins · ${a.secs}s</div>
+        </div>
+        ${done
+          ?'<div style="font-size:11px;font-weight:700;color:var(--gr)">✅ Done</div>'
+          :`<button class="btn btn-bl btn-sm" onclick="startPTC('${a.id}')">View</button>`
+        }
+      </div>
+      <div class="ptc-progress" id="ptcprog-${a.id}" style="display:${done?'none':'block'}">
+        <div class="ptc-bar" id="ptcbar-${a.id}"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function startPTC(id){
+  if(ptcTimer){ toast('Finish current ad first!','r'); return; }
+  const ad=PTC_ADS.find(a=>a.id===id);
+  if(!ad) return;
+  ptcCurrent=ad;
+  // Open URL in new tab
+  window.open('https://'+ad.url,'_blank');
+  // Start timer
+  let elapsed=0;
+  const bar=document.getElementById('ptcbar-'+id);
+  const btn=document.querySelector('#ptccard-'+id+' .btn-bl');
+  if(btn){btn.disabled=true;btn.textContent='Viewing...';}
+  ptcTimer=setInterval(()=>{
+    elapsed++;
+    const pct=(elapsed/ad.secs)*100;
+    if(bar) bar.style.width=pct+'%';
+    if(elapsed>=ad.secs){
+      clearInterval(ptcTimer); ptcTimer=null;
+      completePTC(ad);
+    }
+  },1000);
+  toast('👆 Tab opened! Keep this page open for '+ad.secs+'s','n');
+}
+
+function completePTC(ad){
+  // Mark done
+  localStorage.setItem('ptc_'+ad.id+'_'+TODAY_KEY,'1');
+  S.ptcToday=(S.ptcToday||0)+1;
+  S.ptcTodayCoins=(S.ptcTodayCoins||0)+ad.coins;
+  // Award coins
+  earn(ad.coins,'🖱️ PTC: '+ad.name+' +'+ad.coins,'b');
+  S.total+=ad.coins; S.monthlyCoins+=ad.coins; S.xp+=3;
+  addH({e:'🖱️',n:'PTC: '+ad.name,amt:'+'+ad.coins,type:'earn'});
+  checkLevel(); checkAch(); save(); render(); fbSaveUser();
+  toast('✅ +'+ad.coins+' coins earned!','g');
+  renderPTCList();
+}
+
+// Auth state tracking — set by onAuthStateChanged
+window._authUser = undefined; // undefined=not checked yet, null=signed out, object=signed in
+
 async function boot(){
-  // Init ads — wait for elements to have width to avoid availableWidth=0 error
+  // Init ads
   try{
     window.adsbygoogle=window.adsbygoogle||[];
     window.adsbygoogle.pauseAdRequests=1;
@@ -2485,11 +3613,8 @@ async function boot(){
     });
   }catch(e){}
   initAdMob().catch(e=>console.warn('AdMob:',e));
-  checkStreakMiss(); checkMissions(); checkAch(); render();
 
   const bar = document.getElementById('sbar');
-
-  // Smooth bar animation helper
   function animBar(from, to, ms){
     return new Promise(res=>{
       const steps=Math.max(1,Math.ceil(ms/16));
@@ -2503,47 +3628,88 @@ async function boot(){
     });
   }
 
-  // ── Phase 1: App init (0 → 30%) ──
-  await animBar(0, 30, 500);
+  function hideSplash(){
+    document.getElementById('splash').classList.add('hide');
+    setTimeout(()=>{ document.getElementById('splash').style.display='none'; },500);
+  }
+  function showApp(){
+    // Must use 'visible' not '' — stylesheet rule is visibility:hidden
+    document.querySelectorAll('.topbar,.sidebar,.sb-ov,.page').forEach(el=>el.style.visibility='visible');
+    const tb=document.getElementById('main-topbar');
+    if(tb) tb.style.display='';
+    renderNotifDot();
+    checkFirebaseNotifications();
+  }
+  function showAuthForm(){
+    // Show auth, keep app hidden
+    document.getElementById('auth-screen').classList.add('visible');
+    const seoDiv=document.getElementById('seo-landing');
+    if(seoDiv) seoDiv.style.display='block';
+    const tb=document.getElementById('main-topbar');
+    if(tb) tb.style.display='none';
+  }
 
-  // ── Phase 2: Wait for Firebase (30 → 75%, creep while waiting) ──
-  let fbPct = 30;
-  const creepIv = setInterval(()=>{
-    if(fbPct < 72){ fbPct += 0.3; bar.style.width = fbPct+'%'; }
-  }, 30);
+  // ── Phase 1: 0 → 25% — loading files ──
+  await animBar(0, 25, 400);
 
-  // Wait up to 8s for Firebase to connect
-  const fbConnected = await new Promise(res=>{
-    if(FB){ res(true); return; }
-    let tries = 0;
-    const poll = setInterval(()=>{
-      tries++;
-      if(FB){ clearInterval(poll); res(true); }
-      else if(tries > 80){ clearInterval(poll); res(false); }
-    }, 100);
+  // ── Phase 2: 25 → 60% — wait for Firebase SDK ──
+  let pct=25;
+  const fbCreep=setInterval(()=>{ if(pct<58){pct+=0.35;bar.style.width=pct+'%';} },30);
+  const fbOk=await new Promise(res=>{
+    if(FB){res(true);return;}
+    let t=0;
+    const iv=setInterval(()=>{ t++; if(FB){clearInterval(iv);res(true);} else if(t>80){clearInterval(iv);res(false);} },100);
   });
-  clearInterval(creepIv);
+  clearInterval(fbCreep);
 
-  // ── NO INTERNET: Stop bar at ~70%, show retry — do NOT enter app ──
-  if(!fbConnected){
-    await animBar(fbPct, 72, 200);
-    // Show retry UI on splash — user cannot proceed without Firebase
-    document.getElementById('sp-no-conn').style.display = 'block';
-    document.getElementById('sp-retry').style.display   = 'inline-block';
-    // Bar stays at 72% — splash stays open until user retries
+  if(!fbOk){
+    await animBar(pct,65,200);
+    document.getElementById('sp-no-conn').style.display='block';
+    document.getElementById('sp-retry').style.display='inline-block';
     return;
   }
 
-  // ── Phase 3: Sync user profile (75 → 100%) ──
-  await animBar(fbPct, 75, 200);
-  await fbLoadUser();
-  render();
-  await animBar(75, 100, 400);
+  // ── Phase 3: 60 → 85% — check auth state ──
+  await animBar(pct,60,150);
+  const authChecked=await new Promise(res=>{
+    // Already resolved?
+    if(window._authUser !== undefined){ res(true); return; }
+    // Wait for onAuthStateChanged (max 5s)
+    let t=0;
+    window._authResolve=()=>res(true);
+    const iv=setInterval(()=>{ t++; if(window._authUser!==undefined){clearInterval(iv);res(true);} else if(t>50){clearInterval(iv);res(true);} },100);
+  });
+  await animBar(60,85,200);
 
-  // ── DONE: hide splash ──
-  await new Promise(r=>setTimeout(r,300));
-  document.getElementById('splash').classList.add('hide');
-  setTimeout(()=>{ document.getElementById('splash').style.display='none'; }, 500);
+  // ── Not signed in → show auth screen ──
+  if(!window._authUser){
+    await animBar(85,100,200);
+    hideSplash();
+    setTimeout(showAuthForm, 300);
+    return;
+  }
+
+  // ── Phase 4: 85 → 100% — signed in, load user data ──
+  UID = window._authUser.uid;
+  S = (()=>{ try{ const d=localStorage.getItem(SK); return d?Object.assign(mkS(),JSON.parse(d)):mkS(); }catch(e){return mkS();} })();
+  if(localStorage.getItem('cw8d')!==TODAY_KEY){
+    S.todayAds=0;S.bonusClaimed=false;S.watchedToday=[];
+    S.spinDone=false;S.spinUnlocked=false;S.scratchDone=false;S.scratchUnlocked=false;
+    S.ptcToday=0;S.ptcTodayCoins=0;
+    S.missionsDone=[];localStorage.setItem('cw8d',TODAY_KEY);save();
+  }
+  if(S.currentMonth!==MONTH_KEY){S.monthlyCoins=0;S.currentMonth=MONTH_KEY;save();}
+  S.userEmail=window._authUser.email||'';
+  checkStreakMiss();checkMissions();checkAch();render();
+  await fbLoadUser();
+  await loadRewardsFromFirebase();
+  render();
+  await animBar(85,100,350);
+
+  // ── Done ──
+  showApp();
+  await new Promise(r=>setTimeout(r,250));
+  hideSplash();
 }
 
 boot();
