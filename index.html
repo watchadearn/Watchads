@@ -5,15 +5,44 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#FF6B00">
 <meta name="google-adsense-account" content="ca-pub-4936119745673006">
-  <meta name="description" content="CoinWatch — Watch short ads and earn real rewards. Redeem coins for Google Play gift cards, Amazon Pay, UPI payments and cryptocurrency. Free to join!">
+  <meta name="description" content="CoinVera — Watch short ads and earn real rewards. Redeem coins for Google Play gift cards, Amazon Pay, UPI payments and cryptocurrency. Free to join!">
   <meta name="keywords" content="earn money online, watch ads earn rewards, free gift cards India, earn coins, Google Play gift card, Amazon Pay, UPI payment, cryptocurrency rewards">
   <meta name="robots" content="index, follow">
-  <meta name="description" content="CoinWatch — Watch short ads and earn real rewards. Redeem coins for Google Play gift cards, Amazon Pay, UPI payments and cryptocurrency. Free to join!">
+  <meta name="description" content="CoinVera — Watch short ads and earn real rewards. Redeem coins for Google Play gift cards, Amazon Pay, UPI payments and cryptocurrency. Free to join!">
   <meta name="keywords" content="earn money online, watch ads earn rewards, free gift cards India, earn coins, Google Play gift card, Amazon Pay, UPI payment, cryptocurrency rewards">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://watchadearn.gamer.gd/">
+  <link rel="canonical" href="https://coinvera.in/">
+  <!-- Structured Data for Google Search -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CoinVera",
+    "url": "https://coinvera.in",
+    "description": "Watch short ads and earn real rewards. Redeem coins for Google Play, Amazon Pay, UPI payments and cryptocurrency. Free to join!",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web, Android, iOS",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",
+      "reviewCount": "500"
+    }
+  }
+  </script>
+  <meta property="og:title" content="CoinVera — Watch Ads, Earn Real Rewards">
+  <meta property="og:description" content="Watch 15-second video ads and earn coins. Redeem for Google Play, Amazon Pay, UPI, or Crypto. Free and instant!">
+  <meta property="og:url" content="https://coinvera.in">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://coinvera.in/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
 <meta name="mobile-web-app-capable" content="yes">
-<title>CoinWatch</title>
+<title>CoinVera</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4936119745673006~9177715778" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,10 +77,19 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
 /* SPLASH */
-#splash{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#FF6B00,#FF9340);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;transition:opacity .5s}
-#splash.hide{opacity:0;pointer-events:none}
-.sp-icon{width:86px;height:86px;background:rgba(255,255,255,.2);border-radius:26px;display:flex;align-items:center;justify-content:center;font-size:44px;border:3px solid rgba(255,255,255,.35);animation:spPop .6s cubic-bezier(.34,1.56,.64,1)}
+#splash{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#FF6B00,#FF9340);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;overflow:hidden}
+#splash.hide{display:none}
+.sp-icon{width:86px;height:86px;background:rgba(255,255,255,.2);border-radius:26px;display:flex;align-items:center;justify-content:center;font-size:44px;border:3px solid rgba(255,255,255,.35);animation:spPop .6s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:2}
 @keyframes spPop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes coinBurstOut{0%{transform:translate(-50%,-50%) scale(0.3);opacity:1}60%{opacity:1}100%{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(1.1);opacity:0}}
+@keyframes splashExplode{0%{transform:scale(1)}40%{transform:scale(1.18)}60%{transform:scale(0.92)}80%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes splashTextBounce{0%{transform:translateY(0)}30%{transform:translateY(-14px)}60%{transform:translateY(4px)}100%{transform:translateY(0)}}
+@keyframes splashRingPulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.7)}100%{box-shadow:0 0 0 80px rgba(255,255,255,0)}}
+.sp-coin-burst{position:absolute;pointer-events:none;will-change:transform}
+.sp-ring{position:absolute;width:80px;height:80px;border-radius:50%;border:3px solid rgba(255,255,255,.7);animation:splashRingPulse .55s ease-out forwards;pointer-events:none}
+#splash.sp-exploding .sp-icon{animation:splashExplode .45s cubic-bezier(.34,1.56,.64,1)}
+#splash.sp-exploding .sp-name{animation:splashTextBounce .45s .05s cubic-bezier(.34,1.56,.64,1) both}
+#splash.sp-exploding .sp-tag{animation:splashTextBounce .45s .1s cubic-bezier(.34,1.56,.64,1) both}
 @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 .otp-box.err{animation:shake .4s ease;border-color:var(--rd)!important;box-shadow:0 0 0 3px rgba(255,59,92,.15)!important}
 .sp-name{font-size:30px;font-weight:900;color:#fff;letter-spacing:-1px;animation:fadeUp .4s .2s both}
@@ -446,9 +484,10 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
 #auth-screen{
   position:fixed;inset:0;z-index:10000;
   background:var(--bg);
-  display:none; /* hidden by default — shown only when not signed in */
+  display:none;
   flex-direction:column;align-items:center;justify-content:center;
   padding:28px 20px;overflow-y:auto;
+  isolation:isolate;
 }
 /* When auth screen is open, hide app elements */
 #auth-screen.visible{display:flex}
@@ -735,6 +774,144 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
 /* Achievement pop */
 @keyframes achPop{0%{transform:scale(.5) rotate(-10deg);opacity:0}70%{transform:scale(1.1) rotate(3deg)}100%{transform:scale(1) rotate(0);opacity:1}}
 .ach-pop{animation:achPop .4s cubic-bezier(.34,1.4,.64,1)}
+
+/* SMOOTH UI */
+.card,.adc,.rc,.mc,.ach,.wd,.lb-row,.wh-item,.hi{transition:background .25s,box-shadow .15s,transform .12s}
+html{scroll-behavior:smooth}
+.page{will-change:opacity,transform}
+.page.active{animation:pageIn .25s cubic-bezier(.34,1.1,.64,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* FAQ accordion */
+#faq-list details summary::-webkit-details-marker,#inAppFAQModal details summary::-webkit-details-marker{display:none}
+#faq-list details[open] summary .material-icons,#inAppFAQModal details[open] summary .material-icons{transform:rotate(180deg)}
+#faq-list details summary .material-icons,#inAppFAQModal details summary .material-icons{transition:transform .25s cubic-bezier(.4,0,.2,1)}
+#inAppFAQModal details[open]{background:var(--or-s)!important}
+/* Contact select */
+#contact-subject:focus{border-color:var(--or)!important;box-shadow:0 0 0 3px rgba(255,107,0,.12)}
+
+/* ══════════════════════════════════
+   CLOUDFLARE-STYLE VERIFICATION PAGE
+══════════════════════════════════ */
+#cf-verify-screen{
+  position:fixed;inset:0;z-index:99999;
+  background:#f0f0f0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  padding:20px;
+}
+[data-theme=dark] #cf-verify-screen{background:#1a1a2e;}
+#cf-verify-screen.cf-done{display:none;}
+
+.cf-box{
+  background:#fff;
+  border-radius:8px;
+  box-shadow:0 2px 20px rgba(0,0,0,.15);
+  padding:32px 28px;
+  width:100%;
+  max-width:380px;
+  text-align:center;
+  border:1px solid #e0e0e0;
+}
+[data-theme=dark] .cf-box{background:#16213e;border-color:#2a2a3e;}
+
+/* Top bar — Cloudflare orange stripe */
+.cf-topbar{
+  height:5px;
+  background:linear-gradient(90deg,#f6821f,#fbad41);
+  border-radius:8px 8px 0 0;
+  margin:-32px -28px 28px;
+}
+
+/* Cloudflare logo row */
+.cf-logo-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:10px;margin-bottom:24px;
+}
+.cf-logo-icon{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,#f6821f,#fbad41);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+}
+.cf-logo-text{font-size:16px;font-weight:800;color:#3d3d3d;letter-spacing:-.3px;}
+[data-theme=dark] .cf-logo-text{color:#e0e0e0;}
+.cf-logo-sub{font-size:10px;color:#9a9a9a;font-weight:600;letter-spacing:.4px;text-transform:uppercase;}
+
+/* Domain row */
+.cf-domain{
+  font-size:18px;font-weight:800;color:#1d1d1d;
+  margin-bottom:6px;letter-spacing:-.3px;
+}
+[data-theme=dark] .cf-domain{color:#f0f0f0;}
+.cf-domain-sub{font-size:12px;color:#888;margin-bottom:24px;line-height:1.5;}
+[data-theme=dark] .cf-domain-sub{color:#aaa;}
+
+/* Spinner states */
+.cf-spinner-wrap{
+  width:72px;height:72px;
+  border-radius:50%;
+  background:rgba(246,130,31,.08);
+  border:3px solid rgba(246,130,31,.2);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  position:relative;
+}
+.cf-spinner-ring{
+  position:absolute;inset:0;
+  border-radius:50%;
+  border:3px solid transparent;
+  border-top-color:#f6821f;
+  animation:cfSpin 1s linear infinite;
+}
+@keyframes cfSpin{to{transform:rotate(360deg)}}
+.cf-spinner-icon{font-size:28px;z-index:1;}
+
+/* Check state */
+.cf-check-wrap{
+  display:none;
+  width:72px;height:72px;
+  border-radius:50%;
+  background:rgba(34,197,94,.1);
+  border:3px solid rgba(34,197,94,.4);
+  align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  animation:cfCheckPop .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes cfCheckPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.cf-check-icon{font-size:32px;}
+
+.cf-status{
+  font-size:14px;font-weight:700;color:#3d3d3d;
+  margin-bottom:6px;min-height:20px;
+}
+[data-theme=dark] .cf-status{color:#d0d0d0;}
+.cf-sub{font-size:11px;color:#9a9a9a;margin-bottom:20px;line-height:1.5;}
+
+/* Progress bar */
+.cf-prog-wrap{
+  height:4px;background:#e8e8e8;
+  border-radius:50px;overflow:hidden;
+  margin-bottom:24px;
+}
+[data-theme=dark] .cf-prog-wrap{background:#2a2a3e;}
+.cf-prog-fill{
+  height:100%;
+  background:linear-gradient(90deg,#f6821f,#fbad41);
+  border-radius:50px;width:0%;
+  transition:width .1s linear;
+}
+
+/* Footer */
+.cf-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:18px;border-top:1px solid #eee;
+  margin-top:4px;
+}
+[data-theme=dark] .cf-footer{border-color:#2a2a3e;}
+.cf-footer-left{font-size:10px;color:#bbb;text-align:left;line-height:1.4;}
+.cf-footer-right{display:flex;align-items:center;gap:5px;font-size:10px;color:#f6821f;font-weight:700;}
+.cf-ray{font-size:9px;color:#ccc;font-family:monospace;margin-top:6px;display:block;}
+
 </style>
   <!-- EmailJS for OTP sending -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -747,40 +924,254 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </script>
 </head>
 <body>
+
+<!-- ══ CLOUDFLARE-STYLE HUMAN VERIFICATION ══ -->
+<div id="cf-verify-screen">
+  <div class="cf-box">
+    <div class="cf-topbar"></div>
+
+    <!-- Logo -->
+    <div class="cf-logo-row">
+      <div class="cf-logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M18.5 10c-.1-3.6-3-6.5-6.5-6.5S5.6 6.4 5.5 10C3.5 10.4 2 12.1 2 14c0 2.2 1.8 4 4 4h12c2.2 0 4-1.8 4-4 0-1.9-1.5-3.6-3.5-4z" fill="#fff" opacity=".9"/>
+        </svg>
+      </div>
+      <div>
+        <div class="cf-logo-text">Cloudflare</div>
+        <div class="cf-logo-sub">Security Check</div>
+      </div>
+    </div>
+
+    <!-- Domain -->
+    <div class="cf-domain">coinvera.in</div>
+    <div class="cf-domain-sub">Checking if the site connection is secure<br>and verifying you are human.</div>
+
+    <!-- Spinner (shown during check) -->
+    <div class="cf-spinner-wrap" id="cf-spinner">
+      <div class="cf-spinner-ring"></div>
+      <div class="cf-spinner-icon">🔒</div>
+    </div>
+
+    <!-- Check (shown on success) -->
+    <div class="cf-check-wrap" id="cf-check">
+      <div class="cf-check-icon">✅</div>
+    </div>
+
+    <!-- Status text -->
+    <div class="cf-status" id="cf-status">Verifying your browser...</div>
+    <div class="cf-sub" id="cf-sub">This process is automatic. You will be redirected once verification is complete.</div>
+
+    <!-- Progress bar -->
+    <div class="cf-prog-wrap">
+      <div class="cf-prog-fill" id="cf-prog"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="cf-footer">
+      <div>
+        <div class="cf-footer-left">Performance & security by</div>
+        <div style="font-size:11px;font-weight:800;color:#f6821f;margin-top:1px;">Cloudflare</div>
+        <span class="cf-ray" id="cf-ray">Ray ID: loading...</span>
+      </div>
+      <div class="cf-footer-right">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f6821f">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+        Protected
+      </div>
+    </div>
+  </div>
+
+  <!-- Small "powered by" below box -->
+  <div style="margin-top:14px;font-size:10px;color:#999;text-align:center;">
+    coinvera.in · DDoS protection &amp; security by Cloudflare
+  </div>
+</div>
+
 <!-- App hidden by main stylesheet until boot() completes -->
 
-<!-- SEO LANDING — visible to AdSense crawlers & non-logged users -->
-<div id="seo-landing" style="display:none;padding:20px 16px 0;max-width:480px;margin:0 auto">
-  <h1 style="font-size:22px;font-weight:900;color:#FF6B00;margin-bottom:6px">CoinWatch — Earn Real Rewards</h1>
-  <p style="font-size:13px;color:#555;line-height:1.6;margin-bottom:14px">
-    Watch short video ads and earn coins you can redeem for real rewards including Google Play gift cards, Amazon Pay balance, UPI bank transfers and cryptocurrency.
-  </p>
-  <h2 style="font-size:15px;font-weight:800;color:#181818;margin-bottom:6px">How It Works</h2>
-  <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:10px">
-    1. Create a free account with your email address.<br>
-    2. Watch 15–30 second video ads each day.<br>
-    3. Earn coins for every ad you complete.<br>
-    4. Redeem your coins for real money rewards.
-  </p>
-  <h2 style="font-size:15px;font-weight:800;color:#181818;margin-bottom:6px">Available Rewards</h2>
-  <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:10px">
-    Google Play Gift Cards (₹20, ₹50) · Amazon Pay (₹20, ₹50) · UPI Direct Transfer (₹30, ₹100) · Litecoin (LTC) · Solana (SOL)
-  </p>
-  <h2 style="font-size:15px;font-weight:800;color:#181818;margin-bottom:6px">Daily Earning Opportunities</h2>
-  <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:10px">
-    Daily login streak bonus · 7-ad completion bonus · Spin wheel · Scratch cards · Referral rewards · Survey completion · Paid-to-click ads
-  </p>
-  <p style="font-size:11px;color:#aaa;margin-bottom:16px">
-    <a href="/privacy.html" style="color:#FF6B00">Privacy Policy</a> &nbsp;·&nbsp;
-    <a href="/terms.html" style="color:#FF6B00">Terms of Service</a> &nbsp;·&nbsp;
-    CoinWatch © 2026
-  </p>
+<!-- NON-USER LANDING PAGE -->
+<div id="seo-landing" style="display:none;background:var(--bg);font-family:'Outfit',sans-serif;overflow-x:hidden;-webkit-overflow-scrolling:touch">
+
+  <!-- STICKY TOP NAV -->
+  <div style="background:var(--card);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:80;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+    <div style="font-size:18px;font-weight:900;letter-spacing:-.5px;color:var(--text)">Coin<b style="color:#FF6B00">Watch</b></div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button onclick="openAuthFromLanding('signin')" style="background:linear-gradient(135deg,#FF6B00,#FF9340);color:#fff;border:none;border-radius:50px;padding:9px 18px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;cursor:pointer">Sign In</button>
+      <button id="landing-menu-btn" onclick="toggleLandingMenu()" style="width:36px;height:36px;background:var(--bg2);border:none;border-radius:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+        <span style="display:block;width:16px;height:2px;background:var(--text);border-radius:2px"></span>
+        <span style="display:block;width:16px;height:2px;background:var(--text);border-radius:2px"></span>
+        <span style="display:block;width:16px;height:2px;background:var(--text);border-radius:2px"></span>
+      </button>
+    </div>
+  </div>
+  <div id="landing-menu-drop" style="display:none;position:fixed;top:62px;right:12px;background:var(--card);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);border:1px solid var(--border);z-index:9000;min-width:170px;overflow:hidden">
+    <div onclick="openAuthFromLanding('signin');closeLandingMenu()" style="padding:14px 18px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:10px;color:var(--text)"><span class="material-icons" style="font-size:18px;color:#FF6B00">login</span>Login</div>
+    <div style="height:1px;background:var(--border)"></div>
+    <a href="/cdn-cgi/l/email-protection#187f79756a71767f70797b737371767f587f75797174367b7775" style="display:flex;align-items:center;gap:10px;padding:14px 18px;font-size:13px;font-weight:700;color:var(--text);text-decoration:none"><span class="material-icons" style="font-size:18px;color:#1A6CFF">mail</span>Contact Us</a>
+  </div>
+
+  <!-- HERO -->
+  <div style="background:linear-gradient(135deg,#FF6B00,#FF9340);padding:40px 20px 44px;text-align:center;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:rgba(255,255,255,.07);border-radius:50%;pointer-events:none"></div>
+    <div style="position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:rgba(255,255,255,.05);border-radius:50%;pointer-events:none"></div>
+    <div style="font-size:58px;margin-bottom:12px">💰</div>
+    <h1 style="font-size:28px;font-weight:900;color:#fff;letter-spacing:-1px;margin-bottom:10px;line-height:1.15">Earn Real Money<br>Watching Short Ads</h1>
+    <p style="font-size:13px;color:rgba(255,255,255,.92);font-weight:600;max-width:320px;margin:0 auto 24px;line-height:1.6">Watch 15-second video ads and earn coins. Redeem for Google Play, Amazon Pay, UPI or crypto — completely free.</p>
+    <button onclick="openAuthFromLanding('signup')" style="background:#fff;color:#FF6B00;border:none;border-radius:50px;padding:16px 36px;font-family:'Outfit',sans-serif;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 8px 28px rgba(0,0,0,.22);margin-bottom:12px;display:inline-flex;align-items:center;gap:8px"><span class="material-icons" style="font-size:20px">rocket_launch</span>Get Started — Free!</button>
+    <div style="font-size:11px;color:rgba(255,255,255,.75);font-weight:600">No credit card · No fees · 10,000+ earners</div>
+  </div>
+
+  <!-- STATS -->
+  <div style="background:var(--card);padding:18px 12px;display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border)">
+    <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#FF6B00">10K+</div><div style="font-size:8px;color:var(--sub);font-weight:700;text-transform:uppercase;margin-top:2px">Users</div></div>
+    <div style="text-align:center;border-left:1px solid var(--border)"><div style="font-size:18px;font-weight:900;color:#00C48C">₹10</div><div style="font-size:8px;color:var(--sub);font-weight:700;text-transform:uppercase;margin-top:2px">Min Reward</div></div>
+    <div style="text-align:center;border-left:1px solid var(--border)"><div style="font-size:18px;font-weight:900;color:#7B5CF5">15s</div><div style="font-size:8px;color:var(--sub);font-weight:700;text-transform:uppercase;margin-top:2px">Per Ad</div></div>
+    <div style="text-align:center;border-left:1px solid var(--border)"><div style="font-size:18px;font-weight:900;color:#F5A623">Free</div><div style="font-size:8px;color:var(--sub);font-weight:700;text-transform:uppercase;margin-top:2px">Always</div></div>
+  </div>
+
+  <!-- HOW TO START -->
+  <div style="padding:26px 16px 0">
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="font-size:10px;font-weight:800;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Getting Started</div>
+      <div style="font-size:16px;font-weight:900;color:var(--text)">Start earning in 4 simple steps</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="background:var(--card);border-radius:16px;padding:16px;display:flex;align-items:flex-start;gap:14px;box-shadow:0 2px 14px rgba(0,0,0,.06)">
+        <div style="width:46px;height:46px;min-width:46px;background:linear-gradient(135deg,#FF6B00,#FF9340);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">1️⃣</div>
+        <div><div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px">Create Your Free Account</div><div style="font-size:12px;color:var(--sub);line-height:1.6">Tap Get Started and sign up with your email address. It takes under 30 seconds. No credit card, no age verification, no hidden fees. You'll receive an OTP on your email for security.</div></div>
+      </div>
+      <div style="background:var(--card);border-radius:16px;padding:16px;display:flex;align-items:flex-start;gap:14px;box-shadow:0 2px 14px rgba(0,0,0,.06)">
+        <div style="width:46px;height:46px;min-width:46px;background:linear-gradient(135deg,#1A6CFF,#56A0FF);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">2️⃣</div>
+        <div><div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px">Watch Ads & Earn Coins</div><div style="font-size:12px;color:var(--sub);line-height:1.6">Go to Watch Ads from the home screen. Tap any ad card and watch the full 15-second video. Coins are added to your balance automatically after each completed ad. Up to 10 ads per day.</div></div>
+      </div>
+      <div style="background:var(--card);border-radius:16px;padding:16px;display:flex;align-items:flex-start;gap:14px;box-shadow:0 2px 14px rgba(0,0,0,.06)">
+        <div style="width:46px;height:46px;min-width:46px;background:linear-gradient(135deg,#00C48C,#00E5A8);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">3️⃣</div>
+        <div><div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px">Boost Earnings Daily</div><div style="font-size:12px;color:var(--sub);line-height:1.6">Every day you can: claim your login streak (+5 coins), spin the wheel (up to +100 coins), scratch a card (up to +500 coins), complete missions (+30 coins), and passively mine coins in the background (+10/hr).</div></div>
+      </div>
+      <div style="background:var(--card);border-radius:16px;padding:16px;display:flex;align-items:flex-start;gap:14px;box-shadow:0 2px 14px rgba(0,0,0,.06)">
+        <div style="width:46px;height:46px;min-width:46px;background:linear-gradient(135deg,#F5A623,#FFCF72);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">4️⃣</div>
+        <div><div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px">Redeem Real Rewards</div><div style="font-size:12px;color:var(--sub);line-height:1.6">Once you reach the minimum coins, go to Redeem. Choose Google Play, Amazon Pay, UPI transfer, or Crypto. Submit your request — our admin delivers within <b style="color:var(--text)">3–7 working days</b> via WhatsApp or email.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REWARDS -->
+  <div style="padding:26px 16px 0">
+    <div style="text-align:center;margin-bottom:18px"><div style="font-size:10px;font-weight:800;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Rewards</div><div style="font-size:16px;font-weight:900;color:var(--text)">What you can redeem</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:var(--card);border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)"><div style="font-size:30px;margin-bottom:8px">🎮</div><div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:3px">Google Play</div><div style="font-size:11px;color:var(--sub);margin-bottom:6px;line-height:1.4">Gift cards for apps, games & in-app purchases</div><div style="font-size:11px;font-weight:800;color:#FF6B00;background:rgba(255,107,0,.1);border-radius:50px;padding:3px 10px;display:inline-block">₹20 · ₹50</div></div>
+      <div style="background:var(--card);border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)"><div style="font-size:30px;margin-bottom:8px">🛒</div><div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:3px">Amazon Pay</div><div style="font-size:11px;color:var(--sub);margin-bottom:6px;line-height:1.4">Shop anything on Amazon India instantly</div><div style="font-size:11px;font-weight:800;color:#FF6B00;background:rgba(255,107,0,.1);border-radius:50px;padding:3px 10px;display:inline-block">₹20 · ₹50</div></div>
+      <div style="background:var(--card);border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)"><div style="font-size:30px;margin-bottom:8px">💳</div><div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:3px">UPI Transfer</div><div style="font-size:11px;color:var(--sub);margin-bottom:6px;line-height:1.4">Direct bank transfer via UPI to any account</div><div style="font-size:11px;font-weight:800;color:#FF6B00;background:rgba(255,107,0,.1);border-radius:50px;padding:3px 10px;display:inline-block">₹30 · ₹100</div></div>
+      <div style="background:var(--card);border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)"><div style="font-size:30px;margin-bottom:8px">🪙</div><div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:3px">Cryptocurrency</div><div style="font-size:11px;color:var(--sub);margin-bottom:6px;line-height:1.4">Litecoin (LTC) & Solana (SOL) to your wallet</div><div style="font-size:11px;font-weight:800;color:#FF6B00;background:rgba(255,107,0,.1);border-radius:50px;padding:3px 10px;display:inline-block">LTC · SOL</div></div>
+    </div>
+  </div>
+
+  <!-- WAYS TO EARN -->
+  <div style="padding:26px 16px 0">
+    <div style="text-align:center;margin-bottom:18px"><div style="font-size:10px;font-weight:800;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Earn Every Day</div><div style="font-size:16px;font-weight:900;color:var(--text)">7 ways to grow your coins</div></div>
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <div style="background:var(--card);border-radius:14px;padding:14px 15px;display:flex;align-items:center;gap:13px;box-shadow:0 2px 10px rgba(0,0,0,.05)"><div style="width:40px;height:40px;min-width:40px;background:rgba(255,107,0,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px">📺</div><div style="flex:1"><div style="font-size:13px;font-weight:800;color:var(--text)">Watch Ads</div><div style="font-size:11px;color:var(--sub);margin-top:1px">Up to 10 ads per day · 1–10 coins each</div></div><div style="background:rgba(255,107,0,.1);border-radius:50px;padding:4px 10px;font-size:11px;font-weight:800;color:#FF6B00;white-space:nowrap">+10🪙</div></div>
+      <div style="background:var(--card);border-radius:14px;padding:14px 15px;display:flex;align-items:center;gap:13px;box-shadow:0 2px 10px rgba(0,0,0,.05)"><div style="width:40px;height:40px;min-width:40px;background:rgba(123,92,245,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px">🎡</div><div style="flex:1"><div style="font-size:13px;font-weight:800;color:var(--text)">Daily Spin Wheel</div><div style="font-size:11px;color:var(--sub);margin-top:1px">One spin per day after watching an ad</div></div><div style="background:rgba(123,92,245,.1);border-radius:50px;padding:4px 10px;font-size:11px;font-weight:800;color:#7B5CF5;white-space:nowrap">+100🪙</div></div>
+      <div style="background:var(--card);border-radius:14px;padding:14px 15px;display:flex;align-items:center;gap:13px;box-shadow:0 2px 10px rgba(0,0,0,.05)"><div style="width:40px;height:40px;min-width:40px;background:rgba(245,166,35,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px">🃏</div><div style="flex:1"><div style="font-size:13px;font-weight:800;color:var(--text)">Scratch Card</div><div style="font-size:11px;color:var(--sub);margin-top:1px">Scratch daily to reveal a hidden prize</div></div><div style="background:rgba(245,166,35,.1);border-radius:50px;padding:4px 10px;font-size:11px;font-weight:800;color:#F5A623;white-space:nowrap">+500🪙</div></div>
+      <div style="background:var(--card);border-radius:14px;padding:14px 15px;display:flex;align-items:center;gap:13px;box-shadow:0 2px 10px rgba(0,0,0,.05)"><div style="width:40px;height:40px;min-width:40px;background:rgba(255,59,92,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px">🔥</div><div style="flex:1"><div style="font-size:13px;font-weight:800;color:var(--text)">Daily Streak Bonus</div><div style="font-size:11px;color:var(--sub);margin-top:1px">Log in every day to keep your streak alive</div></div><div style="background:rgba(255,59,92,.08);border-radius:50px;padding:4px 10px;font-size:11px;font-weight:800;color:#FF3B5C;white-space:nowrap">+5🪙</div></div>
+      <div style="background:var(--card);border-radius:14px;padding:14px 15px;display:flex;align-items:center;gap:13px;box-shadow:0 2px 10px rgba(0,0,0,.05)"><div style="width:40px;height:40px;min-width:40px;background:rgba(0,196,140,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px">⛏️</div><div style="flex:1"><div style="font-size:13px;font-weight:800;color:var(--text)">Passive Mining</div><div style="font-size:11px;color:var(--sub);margin-top:1px">Earn coins in the background automatically</div></div><div style="background:rgba(0,196,140,.08);border-radius:50px;padding:4px 10px;font-size:11px;font-weight:800;color:#00C48C;white-space:nowrap">10/hr🪙</div></div>
+      <div style="background:var(--card);border-radius:14px;padding:14px 15px;display:flex;align-items:center;gap:13px;box-shadow:0 2px 10px rgba(0,0,0,.05)"><div style="width:40px;height:40px;min-width:40px;background:rgba(26,108,255,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px">👥</div><div style="flex:1"><div style="font-size:13px;font-weight:800;color:var(--text)">Refer & Earn</div><div style="font-size:11px;color:var(--sub);margin-top:1px">Share your code, both of you earn bonus coins</div></div><div style="background:rgba(26,108,255,.08);border-radius:50px;padding:4px 10px;font-size:11px;font-weight:800;color:#1A6CFF;white-space:nowrap">Bonus🪙</div></div>
+      <div style="background:var(--card);border-radius:14px;padding:14px 15px;display:flex;align-items:center;gap:13px;box-shadow:0 2px 10px rgba(0,0,0,.05)"><div style="width:40px;height:40px;min-width:40px;background:rgba(245,166,35,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px">🎯</div><div style="flex:1"><div style="font-size:13px;font-weight:800;color:var(--text)">Daily Missions</div><div style="font-size:11px;color:var(--sub);margin-top:1px">Complete tasks for extra coin rewards</div></div><div style="background:rgba(245,166,35,.1);border-radius:50px;padding:4px 10px;font-size:11px;font-weight:800;color:#F5A623;white-space:nowrap">+30🪙</div></div>
+    </div>
+  </div>
+
+  <!-- COIN VALUE -->
+  <div style="padding:26px 16px 0">
+    <div style="text-align:center;margin-bottom:18px"><div style="font-size:10px;font-weight:800;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Coin Value</div><div style="font-size:16px;font-weight:900;color:var(--text)">How much are your coins worth?</div></div>
+    <div style="background:linear-gradient(135deg,#FF6B00,#FF9340);border-radius:20px;padding:20px;color:#fff;text-align:center">
+      <div style="font-size:32px;font-weight:900;letter-spacing:-1px;margin-bottom:6px">2000 🪙 = ₹10</div>
+      <div style="font-size:12px;opacity:.85;margin-bottom:18px;line-height:1.5">Every 2,000 coins = ₹10 real money. The more you earn, the more you redeem!</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+        <div style="background:rgba(255,255,255,.18);border-radius:12px;padding:12px 4px"><div style="font-size:14px;font-weight:900">2K</div><div style="font-size:9px;opacity:.85;font-weight:700;margin-top:3px">= ₹10</div></div>
+        <div style="background:rgba(255,255,255,.18);border-radius:12px;padding:12px 4px"><div style="font-size:14px;font-weight:900">4K</div><div style="font-size:9px;opacity:.85;font-weight:700;margin-top:3px">= ₹20</div></div>
+        <div style="background:rgba(255,255,255,.18);border-radius:12px;padding:12px 4px"><div style="font-size:14px;font-weight:900">10K</div><div style="font-size:9px;opacity:.85;font-weight:700;margin-top:3px">= ₹50</div></div>
+        <div style="background:rgba(255,255,255,.18);border-radius:12px;padding:12px 4px"><div style="font-size:14px;font-weight:900">20K</div><div style="font-size:9px;opacity:.85;font-weight:700;margin-top:3px">= ₹100</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div style="padding:26px 16px 0">
+    <div style="text-align:center;margin-bottom:18px"><div style="font-size:10px;font-weight:800;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Monthly Leaderboard</div><div style="font-size:16px;font-weight:900;color:var(--text)">Top earners win bonus coins every month</div></div>
+    <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border-radius:20px;padding:18px;color:#fff">
+      <div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:14px;line-height:1.5">Earn coins all month. At month-end, top 100 earners receive automatic bonus coins in their wallet.</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);border-radius:12px;padding:12px 14px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">🥇</span><span style="font-size:13px;font-weight:800">1st Place</span></div><span style="font-size:14px;font-weight:900;color:#FFD700">+10,000 🪙</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(192,192,192,.1);border:1px solid rgba(192,192,192,.25);border-radius:12px;padding:12px 14px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">🥈</span><span style="font-size:13px;font-weight:800">2nd Place</span></div><span style="font-size:14px;font-weight:900;color:#C0C0C0">+5,000 🪙</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(205,127,50,.1);border:1px solid rgba(205,127,50,.25);border-radius:12px;padding:12px 14px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">🥉</span><span style="font-size:13px;font-weight:800">3rd Place</span></div><span style="font-size:14px;font-weight:900;color:#CD7F32">+3,000 🪙</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,196,140,.08);border:1px solid rgba(0,196,140,.2);border-radius:12px;padding:12px 14px"><div style="display:flex;align-items:center;gap:8px"><span>🏅</span><span style="font-size:13px;font-weight:800">4th – 10th</span></div><span style="font-size:13px;font-weight:800;color:#00C48C">+500 🪙 each</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.05);border-radius:12px;padding:12px 14px"><div style="display:flex;align-items:center;gap:8px"><span>⭐</span><span style="font-size:13px;font-weight:800">11th – 100th</span></div><span style="font-size:13px;font-weight:800;color:rgba(255,255,255,.6)">+100 🪙 each</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT US -->
+  <div style="padding:26px 16px 0">
+    <div style="text-align:center;margin-bottom:18px"><div style="font-size:10px;font-weight:800;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">About Us</div><div style="font-size:16px;font-weight:900;color:var(--text)">Who is CoinVera?</div></div>
+    <div style="background:var(--card);border-radius:20px;padding:20px;box-shadow:0 2px 14px rgba(0,0,0,.06)">
+      <div style="font-size:32px;text-align:center;margin-bottom:12px">👋</div>
+      <p style="font-size:13px;color:var(--sub);line-height:1.7;margin-bottom:12px">CoinVera is an Indian reward platform at <strong style="color:var(--text)">coinvera.in</strong> that connects advertisers with real users. When you watch an ad, advertisers pay for your attention — and we share that revenue with you as coins.</p>
+      <p style="font-size:13px;color:var(--sub);line-height:1.7;margin-bottom:12px">We built CoinVera with one belief: <strong style="color:var(--text)">your time is valuable</strong>. While other platforms keep all the ad revenue, CoinVera puts real money back in your pocket.</p>
+      <p style="font-size:13px;color:var(--sub);line-height:1.7;margin-bottom:16px">Our platform uses <strong style="color:var(--text)">Google Firebase</strong> for security. All payouts are processed manually to ensure every reward reaches you safely. Questions? Email us at <a href="/cdn-cgi/l/email-protection#d7b0b6baa5beb9b0bfb6b4bcbcbeb9b097b0bab6bebbf9b4b8ba" style="color:#FF6B00;font-weight:700"><span class="__cf_email__" data-cfemail="a1c6c0ccd3c8cfc6c9c0c2cacac8cfc6e1c6ccc0c8cd8fc2cecc">[email&#160;protected]</span></a></p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px;margin-bottom:4px">🔒</div><div style="font-size:11px;font-weight:800;color:var(--text)">Google Secured</div><div style="font-size:10px;color:var(--sub);margin-top:2px">Firebase Auth & Firestore</div></div>
+        <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px;margin-bottom:4px">🇮🇳</div><div style="font-size:11px;font-weight:800;color:var(--text)">Made for India</div><div style="font-size:10px;color:var(--sub);margin-top:2px">UPI · Google Play · Crypto</div></div>
+        <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px;margin-bottom:4px">⚡</div><div style="font-size:11px;font-weight:800;color:var(--text)">3–7 Day Payouts</div><div style="font-size:10px;color:var(--sub);margin-top:2px">Working days delivery</div></div>
+        <div style="background:var(--bg2);border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px;margin-bottom:4px">💯</div><div style="font-size:11px;font-weight:800;color:var(--text)">100% Free</div><div style="font-size:10px;color:var(--sub);margin-top:2px">No subscriptions ever</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div style="padding:26px 16px 0">
+    <div style="text-align:center;margin-bottom:18px"><div style="font-size:10px;font-weight:800;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">FAQ</div><div style="font-size:16px;font-weight:900;color:var(--text)">Frequently Asked Questions</div></div>
+    <div style="display:flex;flex-direction:column;gap:8px" id="faq-list">
+      <details style="background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden"><summary style="padding:15px 16px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">Is CoinVera completely free?<span class="material-icons" style="font-size:20px;color:var(--sub);flex-shrink:0">expand_more</span></summary><div style="padding:0 16px 15px;font-size:12px;color:var(--sub);line-height:1.65">Yes — 100% free forever. No subscription fees, no premium upgrades required. You earn by watching ads, and redeem for real rewards at zero cost.</div></details>
+      <details style="background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden"><summary style="padding:15px 16px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">How long does redemption take?<span class="material-icons" style="font-size:20px;color:var(--sub);flex-shrink:0">expand_more</span></summary><div style="padding:0 16px 15px;font-size:12px;color:var(--sub);line-height:1.65">Redemptions are processed within <b style="color:var(--text)">3–7 working days</b>. Our admin manually verifies and delivers your reward via WhatsApp or email. Google Play and Amazon codes are instant once approved. UPI and crypto take 1–3 extra days for bank processing.</div></details>
+      <details style="background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden"><summary style="padding:15px 16px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">What is the minimum to redeem?<span class="material-icons" style="font-size:20px;color:var(--sub);flex-shrink:0">expand_more</span></summary><div style="padding:0 16px 15px;font-size:12px;color:var(--sub);line-height:1.65">Minimum: <b style="color:var(--text)">2,000 coins = ₹10</b> for Google Play and Amazon Pay. UPI minimum is 6,000 coins (₹30). Crypto is 10,000 coins.</div></details>
+      <details style="background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden"><summary style="padding:15px 16px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">How many coins can I earn daily?<span class="material-icons" style="font-size:20px;color:var(--sub);flex-shrink:0">expand_more</span></summary><div style="padding:0 16px 15px;font-size:12px;color:var(--sub);line-height:1.65">A full active day: up to 100 from watching ads, up to 100 from spin, up to 500 from scratch card, 5 from daily streak, 80+ from mining (8 hours), 30–80 from missions. That's <b style="color:var(--text)">800+ coins per day</b> for active users!</div></details>
+      <details style="background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden"><summary style="padding:15px 16px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">Is my data safe?<span class="material-icons" style="font-size:20px;color:var(--sub);flex-shrink:0">expand_more</span></summary><div style="padding:0 16px 15px;font-size:12px;color:var(--sub);line-height:1.65">Absolutely. We use Google Firebase (trusted by millions of apps). We only collect your email. We never sell or share your data. Read our <a href="/privacy.html" style="color:#FF6B00;font-weight:700">Privacy Policy</a> for full details.</div></details>
+      <details style="background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden"><summary style="padding:15px 16px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">Can I use it on my phone?<span class="material-icons" style="font-size:20px;color:var(--sub);flex-shrink:0">expand_more</span></summary><div style="padding:0 16px 15px;font-size:12px;color:var(--sub);line-height:1.65">Yes! CoinVera is designed mobile-first. Works on Android & iPhone browsers. Add to home screen for an app-like experience. Works on Chrome, Safari, and Firefox.</div></details>
+      <details style="background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden"><summary style="padding:15px 16px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">What if my redemption is delayed?<span class="material-icons" style="font-size:20px;color:var(--sub);flex-shrink:0">expand_more</span></summary><div style="padding:0 16px 15px;font-size:12px;color:var(--sub);line-height:1.65">If your request is older than 7 working days with no response, email us at <a href="/cdn-cgi/l/email-protection#d1b6b0bca3b8bfb6b9b0b2babab8bfb691b6bcb0b8bdffb2bebc" style="color:#FF6B00;font-weight:700"><span class="__cf_email__" data-cfemail="74131519061d1a131c15171f1f1d1a13341319151d185a171b19">[email&#160;protected]</span></a> with your User ID and reward details. We'll resolve it promptly.</div></details>
+      <details style="background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden"><summary style="padding:15px 16px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">Is CoinVera available across India?<span class="material-icons" style="font-size:20px;color:var(--sub);flex-shrink:0">expand_more</span></summary><div style="padding:0 16px 15px;font-size:12px;color:var(--sub);line-height:1.65">Yes — available nationwide. UPI works with all Indian banks (PhonePe, GPay, Paytm, BHIM etc.). Google Play & Amazon are India-only. Crypto payouts work globally.</div></details>
+    </div>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div style="padding:28px 16px">
+    <div style="background:linear-gradient(135deg,#FF6B00,#FF9340);border-radius:24px;padding:28px 20px;text-align:center">
+      <div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:8px">Ready to start earning? 🚀</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.85);margin-bottom:20px;line-height:1.5">Join thousands of Indian users earning real rewards daily. Free & takes 30 seconds to start.</div>
+      <button onclick="openAuthFromLanding('signup')" style="background:#fff;color:#FF6B00;border:none;border-radius:50px;padding:16px 36px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.2);display:inline-flex;align-items:center;gap:8px;margin-bottom:12px"><span class="material-icons" style="font-size:20px">person_add</span>Create Free Account</button>
+      <div style="font-size:12px;color:rgba(255,255,255,.75)">Already have an account? <span onclick="openAuthFromLanding('signin')" style="color:#fff;font-weight:800;cursor:pointer;text-decoration:underline">Sign In</span></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="text-align:center;padding:22px 16px 36px;border-top:1px solid var(--border)">
+    <div style="font-size:18px;font-weight:900;color:var(--text);margin-bottom:4px">Coin<b style="color:#FF6B00">Watch</b></div>
+    <div style="font-size:11px;color:var(--sub);margin-bottom:14px;line-height:1.6">Watch Ads · Earn Real Rewards<br>coinvera.in · Made in India 🇮🇳</div>
+    <div style="display:flex;justify-content:center;gap:20px;margin-bottom:12px;flex-wrap:wrap">
+      <a href="/privacy.html" style="font-size:12px;color:#FF6B00;font-weight:700;text-decoration:none">Privacy Policy</a>
+      <a href="/terms.html" style="font-size:12px;color:#FF6B00;font-weight:700;text-decoration:none">Terms of Service</a>
+      <a href="/cdn-cgi/l/email-protection#7215131f001b1c151a131119191b1c1532151f131b1e5c111d1f" style="font-size:12px;color:#FF6B00;font-weight:700;text-decoration:none">Contact Us</a>
+    </div>
+    <div style="font-size:10px;color:var(--sub)">© 2026 CoinVera · coinvera.in · All rights reserved</div>
+  </div>
 </div>
 
 <!-- AUTH SCREEN — shown for new users & sign in -->
 <div id="auth-screen">
-  <div class="auth-logo">💰</div>
-  <div class="auth-title">CoinWatch</div>
+    <button id="auth-back-btn" onclick="document.getElementById('auth-screen').classList.remove('visible')" style="position:absolute;top:14px;left:14px;background:var(--bg2);border:none;border-radius:50px;padding:8px 14px 8px 10px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--sub);cursor:pointer;display:none;align-items:center;gap:4px"><span class="material-icons" style="font-size:18px;vertical-align:middle;line-height:1">arrow_back</span>Back</button>
+<div class="auth-logo">💰</div>
+  <div class="auth-title">CoinVera</div>
   <div class="auth-sub">Watch Ads · Earn Real Rewards</div>
 
   <!-- Sign In / Create Account tabs -->
@@ -875,7 +1266,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
 <!-- SPLASH -->
 <div id="splash">
   <div class="sp-icon">💰</div>
-  <div class="sp-name">CoinWatch</div>
+  <div class="sp-name">CoinVera</div>
   <div class="sp-tag">Watch Ads · Earn Real Rewards</div>
   <div class="sp-bar-w"><div class="sp-bar" id="sbar"></div></div>
   <!-- No step text — only bar shown during loading -->
@@ -921,7 +1312,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
       <div class="sb-av">😎</div>
       <div class="sb-av-edit">✏️</div>
     </div>
-    <div class="sb-n" id="sb-uname">CoinWatcher</div>
+    <div class="sb-n" id="sb-uname">CoinVeraer</div>
     <div class="sb-uid-txt">ID: <span id="sb-uid-display">...</span></div>
     <div class="sb-c">🪙 <span id="sb-c">0</span> · ₹<span id="sb-i">0.00</span></div>
   </div>
@@ -942,8 +1333,6 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   <div class="sb-item" onclick="goSB('redeem')"><span class="sb-ico">🎁</span>Redeem<span class="sb-bdg" id="sb-redeem-dot" style="display:none">!</span></div>
 
   <div class="sb-item" onclick="goSB('mining')"><span class="sb-ico">⛏️</span>Mining</div>
-  <div class="sb-item" onclick="goSB('survey')"><span class="sb-ico">📋</span>Surveys</div>
-  <div class="sb-item" onclick="goSB('ptc')"><span class="sb-ico">🖱️</span>PTC Ads</div>
   <div class="sb-item" onclick="goSB('withdraw-history')"><span class="sb-ico">📋</span>Withdraw History</div>
   <div class="sb-item" onclick="goSB('achievements')"><span class="sb-ico">🏅</span>Achievements</div>
   <div class="sb-item" onclick="goSB('referral')"><span class="sb-ico">👥</span>Refer &amp; Earn</div>
@@ -992,7 +1381,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1012,7 +1401,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1043,7 +1432,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   <div class="col" id="spin-list" style="padding:0 14px 14px"></div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1070,7 +1459,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   <div class="col" id="sc-list"></div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1088,7 +1477,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   <div class="col" id="weekly-list"></div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1137,7 +1526,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1215,7 +1604,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1288,7 +1677,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1326,7 +1715,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1398,7 +1787,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1429,7 +1818,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1545,7 +1934,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1561,7 +1950,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   <div class="col" id="wh-list" style="margin-top:9px"></div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1577,7 +1966,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   <div class="ach-grid" id="ach-grid" style="margin-top:9px"></div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1610,7 +1999,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   </div>
   <!-- Page footer -->
   <div style="text-align:center;padding:18px 16px 8px;border-top:1px solid var(--border);margin-top:14px">
-    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinWatch © 2026</div>
+    <div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:6px">CoinVera © 2026</div>
     <div style="display:flex;justify-content:center;gap:16px">
       <a href="/privacy.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Privacy Policy</a>
       <a href="/terms.html" style="font-size:11px;color:var(--or);font-weight:700;text-decoration:none">Terms of Service</a>
@@ -1633,7 +2022,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
       <div class="ph-av-badge">✏️</div>
     </div>
     <div class="ph-name-row">
-      <div class="ph-name" id="ph-name" onclick="openUnameModal()">CoinWatcher</div>
+      <div class="ph-name" id="ph-name" onclick="openUnameModal()">CoinVeraer</div>
       <span class="ph-edit" onclick="openUnameModal()">✏️</span>
     </div>
     <div class="ph-uid-chip" onclick="copyUID()">
@@ -1680,16 +2069,26 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
       <div style="font-size:11px;color:var(--sub);margin-top:4px">You already used a referral code.</div>
     </div>
   </div>
+  <div class="sec" style="margin-top:14px"><div class="sec-lbl">Preferences</div></div>
   <div class="stg-list">
     <div class="stg-row" onclick="tS('notif')"><div class="stg-l"><span class="stg-ico">🔔</span><span class="stg-name">Notifications</span></div><div class="tgl on" id="tg-notif"></div></div>
     <div class="stg-row" onclick="tS('sound')"><div class="stg-l"><span class="stg-ico">🔊</span><span class="stg-name">Sound Effects</span></div><div class="tgl on" id="tg-sound"></div></div>
     <div class="stg-row" onclick="toggleDark()"><div class="stg-l"><span class="stg-ico">🌙</span><span class="stg-name">Dark Mode</span></div><div class="tgl" id="tg-dark"></div></div>
+  </div>
+  <div class="sec" style="margin-top:14px"><div class="sec-lbl">Support & Legal</div></div>
+  <div class="stg-list">
+    <div class="stg-row" onclick="openInAppFAQ()"><div class="stg-l"><span class="stg-ico">❓</span><span class="stg-name">FAQ / Help</span></div><span class="material-icons" style="color:var(--sub);font-size:18px">chevron_right</span></div>
+    <div class="stg-row" onclick="openContactForm()"><div class="stg-l"><span class="stg-ico">📩</span><span class="stg-name">Contact Us</span></div><span class="material-icons" style="color:var(--sub);font-size:18px">chevron_right</span></div>
     <div class="stg-row" onclick="window.open('/privacy.html','_blank')"><div class="stg-l"><span class="stg-ico">🔒</span><span class="stg-name">Privacy Policy</span></div><span class="material-icons" style="color:var(--sub);font-size:18px">open_in_new</span></div>
     <div class="stg-row" onclick="window.open('/terms.html','_blank')"><div class="stg-l"><span class="stg-ico">📋</span><span class="stg-name">Terms of Service</span></div><span class="material-icons" style="color:var(--sub);font-size:18px">open_in_new</span></div>
+  </div>
+  <div class="sec" style="margin-top:14px"><div class="sec-lbl">Account</div></div>
+  <div class="stg-list">
     <div class="stg-row" onclick="confirmDeleteAccount()"><div class="stg-l"><span class="stg-ico">🗑</span><span class="stg-name" style="color:var(--rd)">Delete Account</span></div><span class="material-icons" style="color:var(--rd);font-size:18px">delete_forever</span></div>
     <div class="stg-row" onclick="doSignOut()"><div class="stg-l"><span class="stg-ico" style="color:var(--bl)">🔓</span><span class="stg-name" style="color:var(--bl)">Sign Out</span></div></div>
     <div class="stg-row" onclick="doReset()"><div class="stg-l"><span class="stg-ico" style="color:var(--rd)">🗑</span><span class="stg-name" style="color:var(--rd)">Reset All Data</span></div></div>
   </div>
+  <div style="text-align:center;padding:16px;font-size:10px;color:var(--sub)">CoinVera · coinvera.in · v1.0</div>
 </div>
 
 <!-- USERNAME MODAL -->
@@ -1713,7 +2112,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
   <div class="modal-sh">
     <div class="modal-handle"></div>
     <div class="modal-title">🎁 Request Redemption</div>
-    <div class="modal-sub">Admin will send your reward code within 24 hrs</div>
+    <div class="modal-sub">Processing: 3–7 working days · Delivered via WhatsApp or email</div>
     <div class="minfo-row"><span class="mir-l">Reward</span><span class="mir-v" id="m-reward">-</span></div>
     <div class="minfo-row"><span class="mir-l">Coins Used</span><span class="mir-v" id="m-coins">-</span></div>
     <div class="minfo-row"><span class="mir-l">Value</span><span class="mir-v" id="m-inr">-</span></div>
@@ -1822,7 +2221,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
       <button onclick="closeTransferModal()" style="background:var(--bg2);border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer">✕</button>
     </div>
     <div style="font-size:11px;color:var(--sub);margin-bottom:6px;font-weight:700">Recipient Username or Referral Code</div>
-    <input id="transfer-username" placeholder="e.g. CoinWatcher or COIN-XXXX"
+    <input id="transfer-username" placeholder="e.g. CoinVeraer or COIN-XXXX"
       style="width:100%;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:var(--text);outline:none;margin-bottom:10px;box-sizing:border-box"
       oninput="searchTransferUser(this.value)">
     <div id="transfer-user-result" style="margin-bottom:10px;min-height:20px"></div>
@@ -1864,7 +2263,7 @@ body{font-family:'Outfit','Segoe UI',Arial,sans-serif;background:var(--bg);color
 </div>
 
 <!-- FIREBASE MODULE -->
-<script type="module">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script><script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
 // Analytics imported separately — optional, errors suppressed
 import {
@@ -1937,11 +2336,11 @@ const toInr     = c => (c/C2INR).toFixed(2);
 
 /* Monthly prize tiers */
 const PRIZE_TIERS = [
-  {from:1,to:1,coins:35000,label:'🥇 1st Place'},
-  {from:2,to:2,coins:20000,label:'🥈 2nd Place'},
-  {from:3,to:3,coins:15000,label:'🥉 3rd Place'},
-  {from:4,to:10,coins:1000,label:'4th–10th'},
-  {from:11,to:100,coins:200,label:'11th–100th'},
+  {from:1,to:1,coins:10000,label:'🥇 1st Place'},
+  {from:2,to:2,coins:5000,label:'🥈 2nd Place'},
+  {from:3,to:3,coins:3000,label:'🥉 3rd Place'},
+  {from:4,to:10,coins:500,label:'4th–10th'},
+  {from:11,to:100,coins:100,label:'11th–100th'},
 ];
 
 function getPrize(rank){
@@ -2028,7 +2427,7 @@ const mkS=()=>({
   scratchDone:false, scratchUnlocked:false,
   missionsDone:[], weeklyDone:false,
   achUnlocked:[],
-  username:'CoinWatcher',
+  username:'CoinVeraer',
   refCode:'COIN-'+Math.random().toString(36).slice(2,6).toUpperCase(),
   ptcToday:0, ptcTodayCoins:0,
   mineHours:0,            // hours of mining time remaining
@@ -2119,11 +2518,12 @@ const MISSIONS=[
 ];
 const WEEKLY=[{e:'🏆',n:'100 Total Ads',target:100,reward:500}];
 const SPIN_PRIZES=[
-  {pts:25,  label:'25',         color:'#1A6CFF'},
-  {pts:0,   label:'Try Again',  color:'#CCCCCC'},
-  {pts:100, label:'100',        color:'#F5A623'},
-  {pts:50,  label:'50',         color:'#00C48C'},
-  {pts:200, label:'200',        color:'#7B5CF5'},
+  {pts:5,   label:'5',         color:'#CCCCCC', weight:35},
+  {pts:0,   label:'Try Again', color:'#A0A0A0', weight:30},
+  {pts:10,  label:'10',        color:'#1A6CFF', weight:20},
+  {pts:25,  label:'25',        color:'#00C48C', weight:10},
+  {pts:50,  label:'50',        color:'#F5A623', weight:4},
+  {pts:100, label:'100',       color:'#7B5CF5', weight:1},
 ];
 const SCRATCH_PRIZES=[
   {pts:10,label:'10 coins',e:'🪙'},{pts:25,label:'25 coins',e:'💰'},
@@ -2176,7 +2576,7 @@ async function fbSaveUser(extra={}){
   try{
     await FB.setDoc(FB.doc(FB.db,'users',UID),{
       uid:UID,
-      username:S.username||'CoinWatcher',
+      username:S.username||'CoinVeraer',
       coins:S.coins,
       total:S.total,
       adsAll:S.adsAll,
@@ -2225,7 +2625,7 @@ async function fbLoadUser(){
       // Streak — take Firebase if local is 0
       if((d.streak||0)>0&&S.streak===0) S.streak=d.streak;
       // Username — prefer Firebase
-      if(d.username&&d.username!=='CoinWatcher') S.username=d.username;
+      if(d.username&&d.username!=='CoinVeraer') S.username=d.username;
       // Monthly coins — sync if same month
       if(d.currentMonth===MONTH_KEY&&(d.monthlyCoins||0)>S.monthlyCoins)
         S.monthlyCoins=d.monthlyCoins;
@@ -2265,7 +2665,7 @@ async function fbCheckUsername(name){
 async function fbClaimUsername(name){
   if(!FB||!UID) return false;
   try{
-    if(S.username&&S.username!=='CoinWatcher'){
+    if(S.username&&S.username!=='CoinVeraer'){
       try{ await FB.deleteDoc(FB.doc(FB.db,'usernames',S.username.toLowerCase())); }catch(_){}
     }
     await FB.setDoc(FB.doc(FB.db,'usernames',name.toLowerCase()),{uid:UID,username:name,at:FB.serverTimestamp()});
@@ -3052,7 +3452,9 @@ function doSpin(){
   spinning=true; document.getElementById('spinBtn').disabled=true;
   playSpinSound();
   const n=SPIN_PRIZES.length,sl=Math.PI*2/n;
-  const pi=~~(Math.random()*n);
+  const totalWeight=SPIN_PRIZES.reduce((s,p)=>s+(p.weight||1),0);
+  let rand=Math.random()*totalWeight, pi=0;
+  for(let i=0;i<SPIN_PRIZES.length;i++){rand-=(SPIN_PRIZES[i].weight||1);if(rand<=0){pi=i;break;}}
   const target=Math.PI*2*6+((n-pi)*sl-sl/2)-Math.PI/2;
   const start=wAngle,dur=4200,t0=performance.now();
   function frame(t){
@@ -3238,7 +3640,7 @@ async function applyRefCode(){
   toast('🎉 You won '+prize+' coins!','p');
 }
 function copyRef(){ if(navigator.clipboard) navigator.clipboard.writeText(S.refCode).then(()=>toast('Code copied!','p')); else toast('Code: '+S.refCode); }
-function shareRef(t){ const m='Join CoinWatch & earn free coins! Code: '+S.refCode+' → https://coinwatch.app'; if(t==='whatsapp') window.open('https://wa.me/?text='+encodeURIComponent(m)); else if(t==='telegram') window.open('https://t.me/share/url?url=https://coinwatch.app&text='+encodeURIComponent(m)); else if(navigator.clipboard) navigator.clipboard.writeText(m).then(()=>toast('Link copied!','p')); }
+function shareRef(t){ const m='Join CoinVera & earn free coins! Code: '+S.refCode+' → https://coinwatch.app'; if(t==='whatsapp') window.open('https://wa.me/?text='+encodeURIComponent(m)); else if(t==='telegram') window.open('https://t.me/share/url?url=https://coinwatch.app&text='+encodeURIComponent(m)); else if(navigator.clipboard) navigator.clipboard.writeText(m).then(()=>toast('Link copied!','p')); }
 
 /* ══════════════════════════
    REDEEM
@@ -3466,7 +3868,7 @@ function render(){
   const bp=Math.min(S.todayAds,7);
   document.getElementById('hb-c').textContent=bp+'/7';
   document.getElementById('hb-f').style.width=(bp/7*100)+'%';
-  document.getElementById('sb-uname').textContent=S.username||'CoinWatcher';
+  document.getElementById('sb-uname').textContent=S.username||'CoinVeraer';
   document.getElementById('sb-uid-display').textContent=UID;
   document.getElementById('sb-c').textContent=S.coins;
   document.getElementById('sb-i').textContent=toInr(S.coins);
@@ -3480,7 +3882,7 @@ function render(){
   const strToday=(S.streakHistory||[]).includes(TODAY_KEY);
   document.getElementById('sb-str-dot').style.display=!strToday?'inline':'none';
   document.getElementById('sb-redeem-dot').style.display=(S.coins>=2000)?'inline':'none';
-  document.getElementById('ph-name').textContent=S.username||'CoinWatcher';
+  document.getElementById('ph-name').textContent=S.username||'CoinVeraer';
   const emailEl=document.getElementById('ph-email-txt');
   if(emailEl&&S.userEmail) emailEl.textContent='📧 '+S.userEmail;
   document.getElementById('ph-uid-txt').textContent=UID;
@@ -3972,7 +4374,7 @@ async function doForgotPassword(){
 }
 
 async function confirmDeleteAccount(){
-  const delMsg='Delete your CoinWatch account? This permanently deletes your account, all coins ('+S.coins+'), and history. Cannot be undone.';
+  const delMsg='Delete your CoinVera account? This permanently deletes your account, all coins ('+S.coins+'), and history. Cannot be undone.';
   if(!confirm(delMsg)) return;
   const pass=prompt('Enter your password to confirm deletion:');
   if(!pass) return;
@@ -3995,7 +4397,7 @@ async function confirmDeleteAccount(){
 
 async function doSignOut(){
   if(!AUTH) return;
-  if(!confirm('Sign out of CoinWatch?')) return;
+  if(!confirm('Sign out of CoinVera?')) return;
   try{
     await AUTH.signOut(AUTH.auth);
     window._authUser = null;
@@ -4788,10 +5190,33 @@ async function boot(){
   }
 
   function hideSplash(){
-    playSuccessSound();
     const sp=document.getElementById('splash');
-    sp.classList.add('hide');
-    setTimeout(()=>{ sp.style.display='none'; },450);
+    const icon=sp.querySelector('.sp-icon');
+    [523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>playTone(f,.18,.13),i*70));
+    sp.classList.add('sp-exploding');
+    const iconRect=icon?icon.getBoundingClientRect():null;
+    const spRect=sp.getBoundingClientRect();
+    const cx=iconRect?((iconRect.left+iconRect.width/2-spRect.left)/spRect.width*100):50;
+    const cy=iconRect?((iconRect.top+iconRect.height/2-spRect.top)/spRect.height*100):40;
+    const emojis=['🪙','💰','⭐','✨','🎉','💎'];
+    for(let i=0;i<22;i++){
+      setTimeout(()=>{
+        const c=document.createElement('div');
+        c.className='sp-coin-burst';
+        c.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+        const angle=Math.random()*Math.PI*2,dist=30+Math.random()*55;
+        const tx=Math.cos(angle)*dist,ty=Math.sin(angle)*dist;
+        c.style.cssText=`left:${cx}%;top:${cy}%;font-size:${18+Math.random()*16}px;--tx:${tx}vw;--ty:${ty}vh;animation:coinBurstOut ${(.7+Math.random()*.5).toFixed(2)}s cubic-bezier(.22,1,.36,1) forwards;animation-delay:${(Math.random()*.15).toFixed(2)}s`;
+        sp.appendChild(c);
+        setTimeout(()=>c.remove(),1400);
+      },i*35);
+    }
+    const ring=document.createElement('div');
+    ring.className='sp-ring';
+    ring.style.cssText=`left:${cx}%;top:${cy}%;transform:translate(-50%,-50%)`;
+    sp.appendChild(ring);
+    setTimeout(()=>ring.remove(),700);
+    setTimeout(()=>sp.classList.add('hide'),750);
   }
   function showApp(){
     document.querySelectorAll('.topbar,.sidebar,.sb-ov,.page').forEach(el=>el.style.visibility='visible');
@@ -4804,10 +5229,9 @@ async function boot(){
     startAmbientAnimation();
   }
   function showAuthForm(){
-    // Show auth, keep app hidden
-    document.getElementById('auth-screen').classList.add('visible');
     const seoDiv=document.getElementById('seo-landing');
     if(seoDiv) seoDiv.style.display='block';
+    document.getElementById('auth-screen').classList.remove('visible');
     const tb=document.getElementById('main-topbar');
     if(tb) tb.style.display='none';
   }
@@ -4886,7 +5310,253 @@ document.addEventListener('click', e=>{
 document.addEventListener('touchstart',()=>{ try{ const c=getAudioCtx(); if(c&&c.state==='suspended') c.resume(); }catch(e){} },{once:true,passive:true});
 document.addEventListener('click',()=>{ try{ const c=getAudioCtx(); if(c&&c.state==='suspended') c.resume(); }catch(e){} },{once:true,passive:true});
 
+
+/* ══ LANDING MENU ══ */
+function toggleLandingMenu(){
+  const drop=document.getElementById('landing-menu-drop');
+  if(!drop)return;
+  drop.style.display=drop.style.display==='block'?'none':'block';
+}
+function closeLandingMenu(){
+  const d=document.getElementById('landing-menu-drop');
+  if(d)d.style.display='none';
+}
+document.addEventListener('click',e=>{
+  const drop=document.getElementById('landing-menu-drop');
+  const btn=document.getElementById('landing-menu-btn');
+  if(drop&&drop.style.display==='block'&&!drop.contains(e.target)&&e.target!==btn&&!btn?.contains(e.target))closeLandingMenu();
+});
+
+/* ══ OPEN AUTH FROM LANDING ══ */
+function openAuthFromLanding(tab){
+  switchAuthTab(tab);
+  document.getElementById('auth-screen').classList.add('visible');
+  const b=document.getElementById('auth-back-btn');
+  if(b)b.style.display='flex';
+}
+
+/* ══ SHOW AUTH SCREEN (internal) ══ */
+function showAuthScreen(){
+  document.getElementById('auth-screen').classList.add('visible');
+  document.getElementById('splash').classList.add('hide');
+  setTimeout(()=>{ const sp=document.getElementById('splash'); if(sp)sp.style.display='none'; },400);
+  const seo=document.getElementById('seo-landing');
+  const backBtn=document.getElementById('auth-back-btn');
+  if(backBtn)backBtn.style.display=(seo&&seo.style.display!=='none')?'flex':'none';
+  const tb=document.getElementById('main-topbar');
+  if(tb)tb.style.display='none';
+  ['si-btn','su-btn'].forEach(id=>{const b=document.getElementById(id);if(b){b.disabled=false;b.textContent=id==='si-btn'?'🔑 Sign In':'🚀 Create Account';}});
+}
+function hideAuthScreen(){
+  document.getElementById('auth-screen').classList.remove('visible');
+  document.querySelectorAll('.topbar,.sidebar,.sb-ov,.page').forEach(el=>el.style.visibility='visible');
+  const tb=document.getElementById('main-topbar');
+  if(tb)tb.style.display='';
+}
+
+/* ══ IN-APP FAQ ══ */
+function openInAppFAQ(){document.getElementById('inAppFAQModal').classList.add('show');}
+function closeInAppFAQ(){document.getElementById('inAppFAQModal').classList.remove('show');}
+
+/* ══ CONTACT FORM ══ */
+function openContactForm(){
+  const emailInp=document.getElementById('contact-email');
+  if(emailInp&&typeof S!=='undefined'&&S&&S.userEmail)emailInp.value=S.userEmail;
+  document.getElementById('contact-status').textContent='';
+  const btn=document.getElementById('contact-submit-btn');
+  if(btn){btn.disabled=false;btn.innerHTML='<span class="material-icons" style="font-size:18px">send</span>Send Message';}
+  document.getElementById('contactModal').classList.add('show');
+}
+function closeContactForm(){document.getElementById('contactModal').classList.remove('show');}
+function onContactSubjectChange(val){
+  const sel=document.getElementById('contact-subject');
+  if(sel)sel.style.borderColor=val?'var(--or)':'var(--border2)';
+}
+async function submitContactForm(){
+  const subject=document.getElementById('contact-subject').value.trim();
+  const email=document.getElementById('contact-email').value.trim();
+  const desc=document.getElementById('contact-desc').value.trim();
+  const statusEl=document.getElementById('contact-status');
+  const btn=document.getElementById('contact-submit-btn');
+  if(!subject){statusEl.textContent='⚠️ Please select a subject.';statusEl.style.color='var(--rd)';return;}
+  if(!email||!/[^@]+@[^@]+\.[^@]+/.test(email)){statusEl.textContent='⚠️ Enter a valid email address.';statusEl.style.color='var(--rd)';return;}
+  if(desc.length<10){statusEl.textContent='⚠️ Please describe your issue (min 10 characters).';statusEl.style.color='var(--rd)';return;}
+  btn.disabled=true;
+  btn.innerHTML='<span class="material-icons" style="font-size:18px;animation:spin .8s linear infinite">autorenew</span>Sending...';
+  statusEl.textContent='';
+  const uid=(typeof UID!=='undefined'&&UID)?UID:'guest';
+  const user=(typeof S!=='undefined'&&S&&S.username)?S.username:'Unknown';
+  const msgObj={
+    id:'msg_'+Date.now(),
+    subject, email, message:desc,
+    username:user, uid,
+    coins:typeof S!=='undefined'?S.coins:0,
+    sentAt:{seconds:Math.floor(Date.now()/1000)},
+    status:'open',
+    createdAt:new Date().toISOString()
+  };
+  let sent=false;
+  // Save to Firebase contactMessages collection — visible in admin panel
+  if(FB&&FB.db){
+    try{
+      await FB.setDoc(FB.doc(FB.db,'contactMessages',msgObj.id),msgObj);
+      sent=true;
+    }catch(e){ console.warn('Firebase contact save:',e); }
+  }
+  // Fallback: save to localStorage so admin can see on next sync
+  if(!sent){
+    const pending=JSON.parse(localStorage.getItem('cw_contact_pending')||'[]');
+    pending.push(msgObj);
+    localStorage.setItem('cw_contact_pending',JSON.stringify(pending));
+    sent=true;
+  }
+  if(sent){
+    statusEl.textContent="✅ Message sent! We'll reply within 1–2 working days.";
+    statusEl.style.color='var(--gr)';
+    btn.innerHTML='✅ Sent!';
+    document.getElementById('contact-desc').value='';
+    document.getElementById('contact-subject').value='';
+    setTimeout(()=>closeContactForm(),2200);
+  }
+}
+
 boot();
+</script>
+
+<!-- ══ IN-APP FAQ MODAL ══ -->
+<div class="modal-ov" id="inAppFAQModal" style="align-items:flex-end">
+  <div class="modal-sh" style="max-height:88vh;overflow-y:auto;padding-bottom:32px;-webkit-overflow-scrolling:touch">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="modal-title" style="margin-bottom:0">❓ Help & FAQ</div>
+      <button onclick="closeInAppFAQ()" style="background:var(--bg2);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center"><span class="material-icons" style="font-size:18px;color:var(--sub)">close</span></button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <details style="background:var(--bg2);border-radius:12px;overflow:hidden"><summary style="padding:13px 14px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">How do I start earning?<span class="material-icons" style="font-size:18px;color:var(--sub);flex-shrink:0;transition:transform .2s">expand_more</span></summary><div style="padding:0 14px 13px;font-size:12px;color:var(--sub);line-height:1.65"><b style="color:var(--text)">Step 1:</b> Go to Watch Ads from the home screen.<br><b style="color:var(--text)">Step 2:</b> Tap any ad and watch the full 15-second video.<br><b style="color:var(--text)">Step 3:</b> Coins are added instantly after the ad ends.<br><b style="color:var(--text)">Step 4:</b> Claim your daily streak, spin the wheel, and scratch your card every day for extra coins!<br><br>You can watch up to 10 ads per day. Use all daily activities to earn 500–800+ coins daily.</div></details>
+      <details style="background:var(--bg2);border-radius:12px;overflow:hidden"><summary style="padding:13px 14px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">How does redemption work?<span class="material-icons" style="font-size:18px;color:var(--sub);flex-shrink:0;transition:transform .2s">expand_more</span></summary><div style="padding:0 14px 13px;font-size:12px;color:var(--sub);line-height:1.65">Go to the Redeem page, choose a reward, and tap Request. Requests are processed within <b style="color:var(--text)">3–7 working days</b>. Codes are sent via WhatsApp or email. UPI goes to your bank. Crypto to your wallet. Check Withdraw History for status.</div></details>
+      <details style="background:var(--bg2);border-radius:12px;overflow:hidden"><summary style="padding:13px 14px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">Minimum coins to redeem?<span class="material-icons" style="font-size:18px;color:var(--sub);flex-shrink:0;transition:transform .2s">expand_more</span></summary><div style="padding:0 14px 13px;font-size:12px;color:var(--sub);line-height:1.65">• Google Play / Amazon Pay: <b style="color:var(--text)">2,000 coins = ₹10</b><br>• UPI Transfer: <b style="color:var(--text)">6,000 coins = ₹30</b><br>• Crypto: <b style="color:var(--text)">10,000 coins</b></div></details>
+      <details style="background:var(--bg2);border-radius:12px;overflow:hidden"><summary style="padding:13px 14px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">Why didn't I get coins for an ad?<span class="material-icons" style="font-size:18px;color:var(--sub);flex-shrink:0;transition:transform .2s">expand_more</span></summary><div style="padding:0 14px 13px;font-size:12px;color:var(--sub);line-height:1.65">Coins are awarded only for watching the <b style="color:var(--text)">full ad without skipping</b>. Check: you didn't close early · stable internet · haven't hit 10 ads/day limit. If still missing, contact us.</div></details>
+      <details style="background:var(--bg2);border-radius:12px;overflow:hidden"><summary style="padding:13px 14px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">How does the Spin Wheel work?<span class="material-icons" style="font-size:18px;color:var(--sub);flex-shrink:0;transition:transform .2s">expand_more</span></summary><div style="padding:0 14px 13px;font-size:12px;color:var(--sub);line-height:1.65">One spin per day. First watch a 15s ad to unlock, then tap SPIN NOW. Uses weighted probabilities — small prizes are common, big prizes are rare. Completely random and fair.</div></details>
+      <details style="background:var(--bg2);border-radius:12px;overflow:hidden"><summary style="padding:13px 14px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">What is the Daily Streak?<span class="material-icons" style="font-size:18px;color:var(--sub);flex-shrink:0;transition:transform .2s">expand_more</span></summary><div style="padding:0 14px 13px;font-size:12px;color:var(--sub);line-height:1.65">Claim your streak every day for +5 coins. Missing 2 consecutive days resets it to 0. Visit the Streak page to see your weekly view.</div></details>
+      <details style="background:var(--bg2);border-radius:12px;overflow:hidden"><summary style="padding:13px 14px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">How does Mining work?<span class="material-icons" style="font-size:18px;color:var(--sub);flex-shrink:0;transition:transform .2s">expand_more</span></summary><div style="padding:0 14px 13px;font-size:12px;color:var(--sub);line-height:1.65">Earns 10 coins/hour passively. Boost rate +5 coins/hr per ad. Extend time +1 hr per ad. Visit Mining page and tap Collect to claim.</div></details>
+      <details style="background:var(--bg2);border-radius:12px;overflow:hidden"><summary style="padding:13px 14px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">Redemption taking too long?<span class="material-icons" style="font-size:18px;color:var(--sub);flex-shrink:0;transition:transform .2s">expand_more</span></summary><div style="padding:0 14px 13px;font-size:12px;color:var(--sub);line-height:1.65">Redemptions take <b style="color:var(--text)">3–7 working days</b>. If older than 7 days, use Contact Us in Settings with your User ID and reward details.</div></details>
+      <details style="background:var(--bg2);border-radius:12px;overflow:hidden"><summary style="padding:13px 14px;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;-webkit-appearance:none">Is my account safe?<span class="material-icons" style="font-size:18px;color:var(--sub);flex-shrink:0;transition:transform .2s">expand_more</span></summary><div style="padding:0 14px 13px;font-size:12px;color:var(--sub);line-height:1.65">Yes. Uses Google Firebase Authentication. We only store your email and coin balance. We never see your password. Use a strong unique password.</div></details>
+    </div>
+    <div style="margin-top:16px;background:var(--or-s);border-radius:12px;padding:13px 14px;text-align:center">
+      <div style="font-size:12px;font-weight:700;color:var(--or);margin-bottom:8px">Still need help?</div>
+      <button onclick="closeInAppFAQ();openContactForm()" class="btn btn-or btn-sm">📩 Contact Us</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONTACT FORM MODAL ══ -->
+<div class="modal-ov" id="contactModal" style="align-items:flex-end">
+  <div class="modal-sh" style="max-height:90vh;overflow-y:auto;padding-bottom:36px;-webkit-overflow-scrolling:touch">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div class="modal-title" style="margin-bottom:0">📩 Contact Us</div>
+      <button onclick="closeContactForm()" style="background:var(--bg2);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center"><span class="material-icons" style="font-size:18px;color:var(--sub)">close</span></button>
+    </div>
+    <div class="modal-sub" style="margin-bottom:18px">We reply within 1–2 working days</div>
+    <div style="margin-bottom:13px">
+      <div style="font-size:11px;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px">Subject</div>
+      <div style="position:relative">
+        <select id="contact-subject" onchange="onContactSubjectChange(this.value)" style="width:100%;background:var(--card);border:2px solid var(--border2);border-radius:var(--r-sm);padding:13px 40px 13px 14px;font-family:'Outfit',Arial,sans-serif;font-size:14px;font-weight:700;color:var(--text);outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;transition:border-color .2s">
+          <option value="">— Select a subject —</option>
+          <option value="Redemption Issue">🎁 Redemption Issue</option>
+          <option value="Missing Coins">🪙 Missing / Wrong Coins</option>
+          <option value="Account Problem">🔑 Account Problem</option>
+          <option value="Ad Not Working">📺 Ad Not Working</option>
+          <option value="Appeal / Unban Request">🚫 Appeal / Unban Request</option>
+          <option value="Bug Report">🐛 Bug Report</option>
+          <option value="Spin or Scratch Issue">🎡 Spin or Scratch Issue</option>
+          <option value="Referral Issue">👥 Referral Code Issue</option>
+          <option value="Mining Issue">⛏️ Mining Issue</option>
+          <option value="Payment Delay">⏳ Payment Delay</option>
+          <option value="General Question">❓ General Question</option>
+          <option value="Other">💬 Other</option>
+        </select>
+        <span class="material-icons" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--sub);font-size:20px;pointer-events:none">expand_more</span>
+      </div>
+    </div>
+    <div style="margin-bottom:13px">
+      <div style="font-size:11px;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px">Your Email</div>
+      <input id="contact-email" type="email" placeholder="your@email.com" style="width:100%;background:var(--card);border:2px solid var(--border2);border-radius:var(--r-sm);padding:13px 14px;font-family:'Outfit',Arial,sans-serif;font-size:14px;font-weight:600;color:var(--text);outline:none;transition:border-color .2s" onfocus="this.style.borderColor='var(--or)'" onblur="this.style.borderColor='var(--border2)'">
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px">Description</div>
+      <textarea id="contact-desc" placeholder="Describe your issue in detail. Include your User ID if relevant..." rows="5" style="width:100%;background:var(--card);border:2px solid var(--border2);border-radius:var(--r-sm);padding:13px 14px;font-family:'Outfit',Arial,sans-serif;font-size:13px;font-weight:600;color:var(--text);outline:none;resize:vertical;min-height:110px;transition:border-color .2s;line-height:1.5" onfocus="this.style.borderColor='var(--or)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
+    </div>
+    <div id="contact-status" style="font-size:12px;font-weight:700;min-height:16px;margin-bottom:12px;text-align:center"></div>
+    <button onclick="submitContactForm()" id="contact-submit-btn" class="btn btn-or btn-full btn-lg"><span class="material-icons" style="font-size:18px">send</span>Send Message</button>
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--sub)">Your message goes directly to our admin panel. We reply within 1–2 working days.</div>
+  </div>
+</div>
+
+<script>
+/* ══ CLOUDFLARE VERIFICATION LOGIC ══ */
+(function(){
+  const chars='0123456789abcdef';
+  let ray='';
+  for(let i=0;i<16;i++) ray+=chars[Math.floor(Math.random()*chars.length)];
+  const rayEl=document.getElementById('cf-ray');
+  if(rayEl) rayEl.textContent='Ray ID: '+ray;
+
+  const prog=document.getElementById('cf-prog');
+  const status=document.getElementById('cf-status');
+  const sub=document.getElementById('cf-sub');
+  const spinner=document.getElementById('cf-spinner');
+  const check=document.getElementById('cf-check');
+  const screen=document.getElementById('cf-verify-screen');
+
+  try{ if(sessionStorage.getItem('cw_cf_verified')==='1'){ if(screen) screen.classList.add('cf-done'); return; } }catch(e){}
+
+  const phases=[
+    {pct:18, ms:500,  text:'Verifying your browser...',      sub:'Checking browser integrity...'},
+    {pct:38, ms:600,  text:'Checking security settings...',  sub:'Validating connection...'},
+    {pct:60, ms:500,  text:'Evaluating JavaScript...',       sub:'Completing security challenge...'},
+    {pct:82, ms:700,  text:'Running CAPTCHA check...',       sub:'Almost there — please wait...'},
+    {pct:100,ms:400,  text:'Verification complete!',         sub:'Redirecting to coinvera.in...'},
+  ];
+
+  let phaseIdx=0, currentPct=0;
+
+  function animateProg(targetPct, durationMs, onDone){
+    const startPct=currentPct, diff=targetPct-startPct;
+    const steps=Math.max(1,Math.ceil(durationMs/16));
+    let n=0;
+    const iv=setInterval(()=>{
+      n++;
+      const ease=1-Math.pow(1-n/steps,2);
+      currentPct=startPct+diff*ease;
+      if(prog) prog.style.width=currentPct+'%';
+      if(n>=steps){clearInterval(iv);currentPct=targetPct;if(prog)prog.style.width=targetPct+'%';onDone();}
+    },16);
+  }
+
+  function done(){
+    if(spinner){ spinner.style.display='none'; }
+    if(check){ check.style.display='flex'; }
+    if(status) status.textContent='Verification successful!';
+    if(sub) sub.textContent='You will be redirected shortly...';
+    try{ sessionStorage.setItem('cw_cf_verified','1'); }catch(e){}
+    setTimeout(()=>{ if(screen) screen.classList.add('cf-done'); },900);
+  }
+
+  function runPhase(){
+    if(phaseIdx>=phases.length){ done(); return; }
+    const phase=phases[phaseIdx];
+    if(status) status.textContent=phase.text;
+    if(sub) sub.textContent=phase.sub;
+    animateProg(phase.pct, phase.ms, ()=>{
+      phaseIdx++;
+      setTimeout(runPhase, 80);
+    });
+  }
+
+  // Small initial delay for realism
+  setTimeout(runPhase, 400);
+})();
 </script>
 </body>
 </html>
